@@ -188,8 +188,11 @@
             return $this->db->selectAll($sql)->num_rows;
         }
 
-        public function pagination($itemOfPage) {
+        public function pagination($itemOfPage, $valueSearch) {
             $sql = "SELECT * FROM products WHERE STATUS = 1";
+            if ($valueSearch != "") {
+                $sql .= "  AND productName like '%$valueSearch%'";
+            }
             $items = $this->db->selectAll($sql)->num_rows;
             $page = ceil($items / $itemOfPage);
             return $page;

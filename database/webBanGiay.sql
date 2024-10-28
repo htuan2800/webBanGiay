@@ -116,7 +116,8 @@ CREATE TABLE `evaluation` (
   `idBill` int,
   `idProduct` int,
   `content` varchar(250),
-  `rating` int
+  `rating` int,
+  `createAtEvaluation` timestamp DEFAULT CURRENT_TIMESTAMP
 );
 ALTER TABLE `roleDetail`
 ADD FOREIGN KEY (`idRole`) REFERENCES `roles` (`idRole`);
@@ -946,8 +947,6 @@ VALUES (1, './image/products/1.webp'),
   (39, './image/products/39-4.webp'),
   (40, './image/products/40.webp'),
   (40, './image/products/40-1.webp'),
-  (40, './image/products/40-2.webp'),
-  (40, './image/products/40-3.webp'),
-  (40, './image/products/40-4.webp');
+  (40, './image/products/40-2.webp');
 UPDATE sizeProducts
 SET quantityRemain = 100;

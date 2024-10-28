@@ -44,6 +44,7 @@
 
     $page = isset($_POST['page']) ? $_POST['page'] : 1;
     $itemOfPage = isset($_POST['itemOfPage']) ? $_POST['itemOfPage'] : 10;
+    $valueSearch = isset($_POST['valueSearch']) ? $_POST['valueSearch'] : "";
 
     $page = intval($page);
     $itemOfPage = intval($itemOfPage);
@@ -51,8 +52,14 @@
     $sql = "SELECT * FROM users
     WHERE STATUSREMOVE = 0
     AND IDROLE != 1
-    AND IDUSER != $idCurrent
-    ORDER BY IDUSER DESC
+    AND IDROLE != 2
+    AND IDUSER != $idCurrent";
+
+    if ($valueSearch != "") {
+        $sql .= " AND FULLNAME LIKE '%$valueSearch%'";
+    }
+
+    $sql .= " ORDER BY IDUSER DESC
     LIMIT " . ($page - 1) * $itemOfPage . ", " . $itemOfPage . " ";
 
     $users = $user->selectByCondition($sql);

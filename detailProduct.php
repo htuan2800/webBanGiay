@@ -2,10 +2,12 @@
     require_once "./database/database.php";
     require_once "./database/brand.php";
     require_once "./database/product.php";
+    require_once __DIR__ . "/database/evalution.php";
     require_once "./handle.php";
     $db = new database();
     $brands = new brand($db);
     $products = new product($db);
+    $evaluation = new evalution($db);
 ?>
 
 <!DOCTYPE html>
@@ -113,11 +115,13 @@
                 ?>
 
                 <div class="star">
+                    <?php
+                        for ($i = 0; $i < $evaluation->getAverageRating($product['idProduct']); $i++) {
+                    ?>
                     <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
+                    <?php
+                        }
+                    ?>
                 </div>
             </div>
 
@@ -185,69 +189,55 @@
     <div class="container-fluid rating row">
         <div class="title col-lg-12 col-md-12 col-sm-12">
             <h2>Đánh giá sản phẩm</h2>
-            <span>(100 đánh giá)</span>
+            <span>(<?php echo $evaluation->getCountEvalutionByProduct($_GET['idProduct']); ?>)</span>
         </div>
 
-        <div class="rating col-lg-12 col-md-12 col-sm-12 row">
+        <?php
+                $result = $evaluation->getEvalutionByProduct($_GET['idProduct']);
+                while ($row = $result->fetch_assoc()) {
+            ?>
 
+        <div class="rating col-lg-12 col-md-12 col-sm-12 row">
             <div class="avatar col-lg-1 col-md-2 col-sm-2">
                 <img src="./avatar/default-avatar.jpg" alt="" class="img-fluid">
             </div>
 
             <div class="info col-lg-9 col-md-8 col-sm-8">
                 <div class="name">
-                    <span>Người Dùng</span>
+                    <span><?php echo $row['fullName']; ?></span>
                 </div>
                 <div class="time">
-                    <span>23/06/2024</span>
+                    <span><?php echo convertDate($row['createAtEvaluation']) ?></span>
                 </div>
                 <div class="comment">
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque fugit, dolor voluptas dicta
-                        maxime excepturi accusamus rerum, ab culpa et enim dolorem necessitatibus obcaecati nesciunt nam
-                        pariatur a! Iste, repellendus?</p>
+                    <p><?php echo $row['content']; ?></p>
                 </div>
             </div>
 
             <div class="star col-lg-2 col-md-2 col-sm-2">
+                <?php
+                    for ($i = 0; $i < $row['rating']; $i++) {
+                ?>
                 <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-            </div>
-        </div>
-        <div class="rating col-lg-12 col-md-12 col-sm-12 row">
-
-            <div class="avatar col-lg-1 col-md-2 col-sm-2">
-                <img src="./avatar/default-avatar.jpg" alt="" class="img-fluid">
-            </div>
-
-            <div class="info col-lg-9 col-md-8 col-sm-8">
-                <div class="name">
-                    <span>Người Dùng</span>
-                </div>
-                <div class="time">
-                    <span>23/06/2024</span>
-                </div>
-                <div class="comment">
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque fugit, dolor voluptas dicta
-                        maxime excepturi accusamus rerum, ab culpa et enim dolorem necessitatibus obcaecati nesciunt nam
-                        pariatur a! Iste, repellendus?</p>
-                </div>
-            </div>
-
-            <div class="star col-lg-2 col-md-2 col-sm-2">
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
+                <?php
+                    }
+                    ?>
             </div>
         </div>
 
+        <?php
+                }
+        ?>
+        <?php
+            if ($evaluation->getCountEvalutionByProduct($_GET['idProduct']) > 5) {
+        ?>
         <div class="show-more col-lg-12 col-md-12 col-sm-12">
             <button class="btn-show-more">Xem thêm</button>
         </div>
+
+        <?php
+            }
+        ?>
     </div>
 
     <!-- related product -->
@@ -262,7 +252,7 @@
                 foreach ($result as $product) {
             ?>
 
-            <div class="product-item col-lg-3 col-md-3 col-sm-3">
+            <div class="product-item col-lg-3 col-md-6 col-sm-6">
                 <div class="product-top">
                     <a href="./detailProduct.php?idProduct=<?php echo $product['idProduct']; ?>" class="product-image">
                         <img src="<?php echo $product['image']; ?>" loading="lazy" alt="" class="img-fluid">

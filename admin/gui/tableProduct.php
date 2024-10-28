@@ -16,11 +16,17 @@
 
     $page = (int) isset($_POST['page']) ? $_POST['page'] : 1;
     $itemOfPage = (int) isset($_POST['itemOfPage']) ? $_POST['itemOfPage'] : 10;
+    $valueSearch = isset($_POST['valueSearch']) ? $_POST['valueSearch'] : "";
 
     $sql = "SELECT * FROM products
     JOIN BRANDS ON products.idBrand = BRANDS.idBrand
     JOIN imageProductS ON products.idProduct = imageProductS.idProduct
-    WHERE products.STATUS = 1 ";
+    WHERE products.STATUS = 1";
+
+    if ($valueSearch != "") {
+        $sql .= " AND products.productName like '%$valueSearch%'";
+    }
+
     $sql .= " GROUP BY products.idProduct
     ORDER BY products.idProduct DESC ";
     $sql .= " LIMIT " . ($page - 1) * $itemOfPage . ", " . $itemOfPage . " ";
@@ -106,7 +112,7 @@
         <?php
                 $db = new database();
                 $product = new product($db);
-                $page = $product->pagination($itemOfPage);
+                $page = $product->pagination($itemOfPage, $valueSearch);
                 for ($i = 1; $i <= $page; $i++) {
             ?>
 

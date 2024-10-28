@@ -1,6 +1,6 @@
 <?php
-    require_once __DIR__ . '/database/database.php';
-    
+require_once __DIR__ . '/database/database.php';
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -33,8 +33,8 @@
     <!-- navbar -->
     <div class="container-fluid">
         <?php
-            require_once "./database/brand.php";
-            include "./gui/navbar.php";
+        require_once './database/brand.php';
+        include './gui/navbar.php';
         ?>
     </div>
 
@@ -42,16 +42,15 @@
     <div class="container-fluid mt-5">
         <div class="title text-center">
             <?php
-                if (isset($_GET['designType'])) {
-                    $designType = $_GET['designType'];
-                    echo "<h1>$designType</h1>";
+            if (isset($_GET['designType'])) {
+                $designType = $_GET['designType'];
+                echo "<h1>$designType</h1>";
+            } else {
+                if (isset($_GET['idBrand'])) {
+                    $result = $brands->selectById($_GET['idBrand']);
+                    echo '<h1>' . $result['brandName'] . '</h1>';
                 }
-                else {
-                    if (isset($_GET['idBrand'])) {
-                        $result = $brands->selectById($_GET['idBrand']);
-                        echo "<h1>" . $result['brandName'] . "</h1>";
-                    }
-                }
+            }
             ?>
         </div>
 
@@ -60,7 +59,7 @@
             <!-- filter -->
             <div class="filter col-lg-3 col-md-12 col-sm-12 row">
                 <?php
-                    require_once "./gui/filter.php";
+                require_once './gui/filter.php';
                 ?>
             </div>
 
@@ -86,75 +85,24 @@
 
                     <select name="" id="sort-product" class="form-select" aria-label="Default select example">
                         <option value="">Sắp xếp</option>
-                        <option value="">Giá tăng dần</option>
-                        <option value="">Giá giảm dần</option>
-                        <option value="">Mới nhất</option>
-                        <option value="">Cũ nhất</option>
-                        <option value="">Bán chạy</option>
+                        <option value="currentPrice ASC">Giá tăng dần</option>
+                        <option value="currentPrice DESC">Giá giảm dần</option>
+                        <option value="CREATEAT DESC">Mới nhất</option>
+                        <option value="CREATEAT ASC">Cũ nhất</option>
+                        <option value="QUANTITYSOLD DESC">Bán chạy</option>
                     </select>
                 </div>
 
                 <div class="show-product col-lg-12 col-md-12 col-sm-12 row">
                     <?php
-                        require_once "./database/ajaxProducts.php";
+                    require_once './database/ajaxProducts.php';
                     ?>
                 </div>
 
                 <div class="paging">
                     <?php
-                        $sql = "SELECT * FROM products JOIN imageProductS
-                                ON products.idProduct = imageProductS.idProduct
-                                WHERE PRODUCTS.STATUS = 1 AND
-                                idBrand = $brand";
-                        if ($designType != "") {
-                            $sql = $sql . " AND designType = '$designType'";
-                        }
-                        $sql = $sql . " GROUP BY products.idProduct";
-                        $result = $products->selectByCondition($sql);
-                        $totalRecord = $result->num_rows;
-                        $totalPage = ceil($totalRecord / 4);
+                        require_once ("./gui/paging.php")
                     ?>
-
-                    <nav aria-label="Page navigation example">
-                        <ul class="pagination">
-                            <li class="page-item disabled previous"><a class="page-link" href="#">Previous</a></li>
-
-                            <?php
-                                for ($i = 1; $i <= $totalPage; $i++) {
-                                    if ($i == 1) {
-                            ?>
-                            <li class="page-item active"><a class="page-link" href="#"><?php echo $i; ?></a></li>
-
-                            <?php
-                                    }
-                                    else {
-                            ?>
-
-                            <li class="page-item"><a class="page-link" href="#"><?php echo $i; ?></a></li>
-
-                            <?php
-                                    }
-                                }
-                            ?>
-
-                            <?php
-                                if ($totalPage > 1) {
-                            ?>
-                            <li class="page-item"><a class="page-link" href="#">Next</a></li>
-
-                            <?php
-                                }
-                                else {
-                            ?>
-
-                            <li class="page-item disabled next"><a class="page-link" href="#">Next</a></li>
-
-                            <?php
-                                }
-                            ?>
-
-                        </ul>
-                    </nav>
                 </div>
             </div>
         </div>
@@ -170,6 +118,6 @@
     <!-- custom js -->
     <script src="./js/navbar.js"></script>
     <script src="./js/cart.js"></script>
-    <script src="./js/products.js"></script>
+    <script type="module" src="./js/products.js"></script>
 
 </html>

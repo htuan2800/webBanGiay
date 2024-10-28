@@ -1,342 +1,338 @@
 .logo-header .logo .navbar-brand {
-    background-color: white;
-    width: 70%;
-    height: auto;
+  background-color: white;
+  width: 70%;
+  height: auto;
 }
 
 .container {
+  .info-customer {
+    td {
+      text-align: center;
 
-    .info-customer {
-        td {
-            text-align: center;
+      img {
+        border-radius: 50%;
+      }
+    }
+  }
 
-            img {
-                border-radius: 50%;
-            }
+  .info-product {
+    margin: 50px auto;
+    width: 90%;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 2px 6px 15px 0 rgba(69, 65, 78, 0.1);
+    border-radius: 10px;
+
+    .product-tools {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+
+      .show {
+        display: flex;
+        align-items: center;
+
+        span {
+          margin: 0 10px;
+          width: 130px;
         }
+      }
     }
 
-    .info-product {
-        margin: 50px auto;
-        width: 90%;
-        padding: 20px;
-        background-color: white;
-        box-shadow: 2px 6px 15px 0 rgba(69, 65, 78, .1);
-        border-radius: 10px;
+    .table-responsive {
+      th:nth-child(2) {
+        width: 30%;
+      }
 
-        .product-tools {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
+      td {
+        text-align: center;
 
-            .show {
-                display: flex;
-                align-items: center;
-
-                span {
-                    margin: 0 10px;
-                    width: 130px;
-                }
-            }
+        img {
+          border-radius: 50%;
         }
 
-        .table-responsive {
-            th:nth-child(2) {
-                width: 30%;
-            }
+        .action {
+          display: flex;
+          justify-content: space-around;
+          align-items: center;
 
-            td {
-                text-align: center;
-
-                img {
-                    border-radius: 50%;
-                }
-
-                .action {
-                    display: flex;
-                    justify-content: space-around;
-                    align-items: center;
-
-                    i {
-                        font-size: 18px;
-                        cursor: pointer;
-
-                        &.fa-trash {
-                            color: red;
-                        }
-
-                        &.fa-edit {
-                            color: blue;
-                        }
-
-                        &:hover {
-                            opacity: 0.6;
-                        }
-                    }
-
-                }
-            }
-        }
-
-        .modal {
-
-            .modal-body {
-
-                .image {
-                    margin-top: 20px;
-
-                    .image-show {
-                        display: flex;
-                        justify-content: start;
-                        align-items: center;
-                        max-width: 100%;
-                        overflow: scroll;
-                        overflow-y: hidden;
-
-                        img {
-                            margin: 0 10px;
-                            max-width: 40%;
-                        }
-                    }
-
-                    .accordion-collapse {
-                        position: relative;
-
-                        .btn-tools {
-                            position: absolute;
-                            top: 50%;
-                            left: 50%;
-                            transform: translate(-50%, -50%);
-                            width: 100%;
-                            display: flex;
-                            justify-content: space-around;
-                            align-items: center;
-
-                            button {
-                                width: 30%;
-                            }
-                        }
-
-                    }
-                }
-            }
-        }
-    }
-
-    .add-product,
-    .add-staff {
-        margin: 50px auto;
-        width: 90%;
-        padding: 20px;
-        background-color: white;
-        box-shadow: 2px 6px 15px 0 rgba(69, 65, 78, .1);
-        border-radius: 10px;
-
-        .title {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .btn-add-size {
-            &.hidden {
-                display: none !important;
-            }
-        }
-
-        .form-floating {
-            label {
-                left: 15px;
-            }
-        }
-
-        #add-image {
-            margin-right: 10px;
-        }
-    }
-
-    .info-role {
-        margin: 50px auto;
-        width: 95% !important;
-        padding: 20px;
-        background-color: white;
-        box-shadow: 2px 6px 15px 0 rgba(69, 65, 78, .1);
-        border-radius: 10px;
-
-        .title {
-            border-bottom: 1px solid #ccc;
-        }
-
-        table {
-            width: 100%;
-            text-align: center;
-
-            .action {
-                display: flex;
-                justify-content: space-around;
-                align-items: center;
-
-                i {
-                    font-size: 18px;
-                    cursor: pointer;
-
-                    &.fa-trash {
-                        color: red;
-                    }
-
-                    &.fa-edit {
-                        color: blue;
-                    }
-
-                    &.fa-eye {
-                        color: green;
-                    }
-
-                    &:hover {
-                        opacity: 0.6;
-                    }
-                }
-            }
-        }
-    }
-
-    #modal-role {
-        .modal-body {
-            .task {
-                font-size: 19px;
-                font-weight: bold;
-            }
-
-            .permission {
-                font-size: 19px;
-                font-weight: bold;
-
-                input {
-                    border: 2px solid #ccc;
-                }
-            }
-        }
-    }
-
-    .add-role {
-        margin: 50px auto;
-        width: 90%;
-        padding: 20px;
-        background-color: rgba(255, 255, 255, 0.8);
-        box-shadow: 2px 6px 15px 0 rgba(69, 65, 78, .1);
-        border-radius: 10px;
-
-        .title {
-            h4 {
-                font-size: 25px;
-                font-weight: bold;
-            }
-        }
-
-        .task {
-            font-size: 19px;
-            font-weight: bold;
-        }
-
-        .permissiongroup {
-            font-size: 19px;
-            font-weight: bold;
-
-            input {
-                border: 2px solid #ccc;
-            }
-        }
-    }
-
-    .info-staff,
-    .info-order-approval,
-    .info-order-delivery,
-    .info-order-deliveried {
-        margin: 50px auto;
-        width: 90%;
-        padding: 20px;
-        background-color: white;
-        box-shadow: 2px 6px 15px 0 rgba(69, 65, 78, .1);
-        border-radius: 10px;
-
-        td,
-        th {
-            text-align: center;
-
-            img {
-                border-radius: 50%;
-            }
-
-            .action {
-                display: flex;
-                justify-content: space-around;
-                align-items: center;
-
-                i {
-                    font-size: 18px;
-                    cursor: pointer;
-
-                    &.fa-trash {
-                        color: red;
-                    }
-
-                    &.fa-edit {
-                        color: blue;
-                    }
-
-                    &.fa-eye {
-                        color: green;
-                    }
-
-                    &:hover {
-                        opacity: 0.6;
-                    }
-                }
-            }
-        }
-
-        .staff-tools,
-        .order-approval-tools,
-        .order-delivery-tools,
-        .order-deliveried-tools {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-
-            .show {
-                display: flex;
-                align-items: center;
-
-                span {
-                    margin: 0 10px;
-                    width: 130px;
-                }
-            }
-        }
-
-        .pagination {
+          i {
             font-size: 18px;
-        }
+            cursor: pointer;
 
-        .modal-dialog {
-            div.mb-4 {
-                position: relative;
-
-                .text-danger {
-                    position: absolute;
-                    bottom: -20px;
-                    left: 20px;
-                }
+            &.fa-trash {
+              color: red;
             }
+
+            &.fa-edit {
+              color: blue;
+            }
+
+            &:hover {
+              opacity: 0.6;
+            }
+          }
         }
+      }
     }
 
-    .info-order-approval,
-    .info-order-delivery,
-    .info-order-deliveried {
-        th::nth-child(3) {
-            width: 30%;
+    .modal {
+      .modal-body {
+        .image {
+          margin-top: 20px;
+
+          .image-show {
+            display: flex;
+            justify-content: start;
+            align-items: center;
+            max-width: 100%;
+            overflow: scroll;
+            overflow-y: hidden;
+
+            img {
+              margin: 0 10px;
+              max-width: 40%;
+            }
+          }
+
+          .accordion-collapse {
+            position: relative;
+
+            .btn-tools {
+              position: absolute;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+              width: 100%;
+              display: flex;
+              justify-content: space-around;
+              align-items: center;
+
+              button {
+                width: 30%;
+              }
+            }
+          }
         }
+      }
     }
+  }
+
+  .add-product,
+  .add-staff {
+    margin: 50px auto;
+    width: 90%;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 2px 6px 15px 0 rgba(69, 65, 78, 0.1);
+    border-radius: 10px;
+
+    .title {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .btn-add-size {
+      &.hidden {
+        display: none !important;
+      }
+    }
+
+    .form-floating {
+      label {
+        left: 15px;
+      }
+    }
+
+    #add-image {
+      margin-right: 10px;
+    }
+  }
+
+  .info-role {
+    margin: 50px auto;
+    width: 95% !important;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 2px 6px 15px 0 rgba(69, 65, 78, 0.1);
+    border-radius: 10px;
+
+    .title {
+      border-bottom: 1px solid #ccc;
+    }
+
+    table {
+      width: 100%;
+      text-align: center;
+
+      .action {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+
+        i {
+          font-size: 18px;
+          cursor: pointer;
+
+          &.fa-trash {
+            color: red;
+          }
+
+          &.fa-edit {
+            color: blue;
+          }
+
+          &.fa-eye {
+            color: green;
+          }
+
+          &:hover {
+            opacity: 0.6;
+          }
+        }
+      }
+    }
+  }
+
+  #modal-role {
+    .modal-body {
+      .task {
+        font-size: 19px;
+        font-weight: bold;
+      }
+
+      .permission {
+        font-size: 19px;
+        font-weight: bold;
+
+        input {
+          border: 2px solid #ccc;
+        }
+      }
+    }
+  }
+
+  .add-role {
+    margin: 50px auto;
+    width: 90%;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.8);
+    box-shadow: 2px 6px 15px 0 rgba(69, 65, 78, 0.1);
+    border-radius: 10px;
+
+    .title {
+      h4 {
+        font-size: 25px;
+        font-weight: bold;
+      }
+    }
+
+    .task {
+      font-size: 19px;
+      font-weight: bold;
+    }
+
+    .permissiongroup {
+      font-size: 19px;
+      font-weight: bold;
+
+      input {
+        border: 2px solid #ccc;
+      }
+    }
+  }
+
+  .info-staff,
+  .info-order-approval,
+  .info-order-delivery,
+  .info-order-deliveried {
+    margin: 50px auto;
+    width: 90%;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 2px 6px 15px 0 rgba(69, 65, 78, 0.1);
+    border-radius: 10px;
+
+    td,
+    th {
+      text-align: center;
+
+      img {
+        border-radius: 50%;
+        height: 100px;
+      }
+
+      .action {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+
+        i {
+          font-size: 18px;
+          cursor: pointer;
+
+          &.fa-trash {
+            color: red;
+          }
+
+          &.fa-edit {
+            color: blue;
+          }
+
+          &.fa-eye {
+            color: green;
+          }
+
+          &:hover {
+            opacity: 0.6;
+          }
+        }
+      }
+    }
+
+    .staff-tools,
+    .order-approval-tools,
+    .order-delivery-tools,
+    .order-deliveried-tools {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+
+      .show {
+        display: flex;
+        align-items: center;
+
+        span {
+          margin: 0 10px;
+          width: 130px;
+        }
+      }
+    }
+
+    .pagination {
+      font-size: 18px;
+    }
+
+    .modal-dialog {
+      div.mb-4 {
+        position: relative;
+
+        .text-danger {
+          position: absolute;
+          bottom: -20px;
+          left: 20px;
+        }
+      }
+    }
+  }
+
+  .info-order-approval,
+  .info-order-delivery,
+  .info-order-deliveried {
+    th::nth-child(3) {
+      width: 30%;
+    }
+  }
 }

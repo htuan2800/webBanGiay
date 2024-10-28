@@ -122,7 +122,12 @@
                                                     <img src="
                                                         <?php
                                                             if (isset ($_SESSION['account_login'])) {
-                                                                echo '.' . $_SESSION['account_login']['avatar'];
+                                                                if (strpos($_SESSION['account_login']['avatar'], 'https://') !== false) {
+                                                                    echo $_SESSION['account_login']['avatar'] . '?'. time();
+                                                                }
+                                                                else {
+                                                                    echo '.' . $_SESSION['account_login']['avatar'] . '?'. time();
+                                                                }
                                                             }
                                                         ?>
                                                     " alt="image profile" class="avatar-img rounded" />

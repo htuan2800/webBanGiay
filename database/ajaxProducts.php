@@ -10,6 +10,7 @@
         $queryPrice = isset($_GET["queryPrice"]) ? $_GET["queryPrice"] : "";
         $querySize = isset($_GET["querySize"]) ? $_GET["querySize"] : "";
         $queryDesignType = isset($_GET["queryDesignType"]) ? $_GET["queryDesignType"] : "";
+        $queryOrder = isset($_GET["queryOrder"]) ? $_GET["queryOrder"] : "";
         $offset = ($page - 1) * 4;
         $offsetMax = $page * 4;
 
@@ -23,7 +24,15 @@
         if ($designType != "") {
             $sql = $sql . " AND designType = '$designType'";
         }
-        $sql = $sql . " GROUP BY products.idProduct LIMIT $offsetMax OFFSET $offset";
+        if ($queryPrice != "") {
+            $sql = $sql . " AND $queryPrice";
+        }
+        $sql = $sql . " GROUP BY products.idProduct";
+        if ($queryOrder != "") {
+            $sql = $sql . " ORDER BY $queryOrder";
+        }
+        $sql = $sql . "  LIMIT $offsetMax OFFSET $offset";
+        echo $sql;
         $result = $products->selectByCondition($sql);
     }
 ?>

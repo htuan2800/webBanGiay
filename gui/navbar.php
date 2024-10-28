@@ -11,6 +11,8 @@
 
 </div>
 
+<div class="fake-navbar"></div>
+
 <!-- navbar -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">

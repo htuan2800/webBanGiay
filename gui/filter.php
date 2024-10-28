@@ -4,37 +4,37 @@
             <summary>Giá</summary>
             <div>
                 <div class="form-check">
-                    <input class="form-check-input price-filter" type="checkbox" value="">
+                    <input class="form-check-input price-filter" type="checkbox" value="CURRENTPRICE < 1000000">
                     <label class="form-check-label">
                         Dưới 1.000.000đ
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input price-filter" type="checkbox" value="">
+                    <input class="form-check-input price-filter" type="checkbox" value="CURRENTPRICE BETWEEN 1000000 AND 2000000">
                     <label class="form-check-label">
                         1000.000đ - 2.000.000đ
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input price-filter" type="checkbox" value="">
+                    <input class="form-check-input price-filter" type="checkbox" value="CURRENTPRICE BETWEEN 2000000 AND 4000000">
                     <label class="form-check-label">
                         2000.000đ - 4.000.000đ
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input price-filter" type="checkbox" value="">
+                    <input class="form-check-input price-filter" type="checkbox" value="CURRENTPRICE BETWEEN 4000000 AND 5000000">
                     <label class="form-check-label">
                         4000.000đ - 5.000.000đ
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input price-filter" type="checkbox" value="">
+                    <input class="form-check-input price-filter" type="checkbox" value="CURRENTPRICE BETWEEN 5000000 AND 10000000">
                     <label class="form-check-label">
                         5000.000đ - 10.000.000đ
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input price-filter" type="checkbox" value="">
+                    <input class="form-check-input price-filter" type="checkbox" value="CURRENTPRICE > 10000000">
                     <label class="form-check-label">
                         Trên 10.000.000đ
                     </label>
@@ -69,30 +69,22 @@
         <details class="sub-brand col-lg-12 col-md-12 col-sm-4" open>
             <summary>Thiết kế</summary>
             <div>
+                <?php
+                    require_once __DIR__ . "\\..\\database\\brand.php";
+                    $brands = new brand($db);
+                    $subBrands = $brands->selectSubBrandById($_GET['idBrand']);
+                    foreach ($subBrands as $subBrand) {
+                ?>
                 <div class="form-check">
-                    <input class="form-check-input sub-brand-filter" type="checkbox" value="">
+                    <input class="form-check-input sub-brand-filter" type="checkbox"
+                        value="<?php echo $subBrand['subBrandName'] ?>">
                     <label class="form-check-label">
-                        Air Jordan 1
+                        <?php echo $subBrand['subBrandName'] ?>
                     </label>
                 </div>
-                <div class="form-check">
-                    <input class="form-check-input sub-brand-filter" type="checkbox" value="">
-                    <label class="form-check-label">
-                        Air Jordan 1 Low
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input sub-brand-filter" type="checkbox" value="">
-                    <label class="form-check-label">
-                        Air Jordan 1 Mid
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input sub-brand-filter" type="checkbox" value="">
-                    <label class="form-check-label">
-                        Air Jordan 1 High
-                    </label>
-                </div>
+                <?php
+                    }
+                ?>
             </div>
         </details>
     </div>
