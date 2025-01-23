@@ -68,7 +68,7 @@ $(document).ready(function () {
     return content;
   }
 
-  function contentUpdateAddress(name, address, phone) {
+  function contentUpdateAddress(name, address, phone, city, district, ward) {
     var content = `
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
@@ -88,22 +88,22 @@ $(document).ready(function () {
                         </div>
                         <div class="city col-12">
                             <select class="form-select form-select-sm mb-3" id="city" aria-label=".form-select-sm">
-                                <option value="" selected>Chọn thành phố</option>
+                                <option value="0" selected>${city}</option>
                             </select>
                         </div>
                         <div class="district col-12">
                             <select class="form-select form-select-sm mb-3" id="district" aria-label=".form-select-sm">
-                                <option value="" selected>Chọn quận huyện</option>
+                                <option value="0" selected>${district}</option>
                             </select>
                         </div>
                         <div class="ward col-12">
                             <select class="form-select form-select-sm mb-3" id="ward" aria-label=".form-select-sm">
-                                <option value="" selected>Chọn phương xã</option>
+                                <option value="0" selected>${ward}</option>
                             </select>
                         </div>
                         <div class="address-info mb-3 col-lg-12 col-md-12 col-sm-12">
                             <textarea name="address" class="form-control" cols="30" rows="10" id=""
-                                placeholder="Địa chỉ" data-old-address="${address}">${address}</textarea>
+                                placeholder="Địa chỉ" data-old-address="${city}, ${district}, ${ward}, ${address}">${address}</textarea>
                             <span class="error"></span>
                         </div>
                     </form>

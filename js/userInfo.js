@@ -128,7 +128,7 @@ $(document).ready(function () {
     var address = $("textarea[name=address]").val();
 
     var checkEmpty =
-      validateEmpty(name) && validateEmpty(phone) && validateEmpty(address);
+      validateEmpty(name) || validateEmpty(phone) || validateEmpty(address);
     if (checkEmpty == true) {
       Swal.fire({
         title: "Không bỏ trống các thông tin trên!!",
@@ -137,7 +137,17 @@ $(document).ready(function () {
       });
       return;
     }
-    if (city == "" || district == "" || ward == "") {
+    if (
+      $("#city option:selected").val() == "" ||
+      $("#district option:selected").val() == "" ||
+      $("#ward option:selected").val() == "" ||
+      $("#city option:selected").val() == "0" ||
+      $("#district option:selected").val() == "0" ||
+      $("#ward option:selected").val() == "0" ||
+      $("#city option:selected").length == 0 ||
+      $("#district option:selected").length == 0 ||
+      $("#ward option:selected").length == 0
+    ) {
       Swal.fire({
         title: "Vui lòng chọn đầy đủ thành phố, quận huyện, phương xã",
         text: "",
@@ -255,7 +265,59 @@ $(document).ready(function () {
     var name = trParent.find(".name").text();
     var phone = trParent.find(".phone").text();
     var address = trParent.find(".address").text();
-    $(".modal").html(contentUpdateAddress(name, address, phone));
+    var arr_string = address.split(", ");
+    var city = arr_string[0];
+    var district = arr_string[1];
+    var ward = arr_string[2];
+    address = arr_string[3];
+    $(".modal").html(
+      contentUpdateAddress(name, address, phone, city, district, ward)
+    );
+    var citis = document.getElementById("city");
+    var districts = document.getElementById("district");
+    var wards = document.getElementById("ward");
+    var Parameter = {
+      url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
+      method: "GET",
+      responseType: "application/json",
+    };
+    var promise = axios(Parameter);
+    promise.then(function (result) {
+      renderCity(result.data);
+    });
+
+    function renderCity(data) {
+      for (const x of data) {
+        citis.options[citis.options.length] = new Option(x.Name, x.Id);
+      }
+      citis.onchange = function () {
+        districts.length = 0;
+        wards.length = 0;
+        if (this.value != "") {
+          const result = data.filter((n) => n.Id === this.value);
+
+          for (const k of result[0].Districts) {
+            districts.options[districts.options.length] = new Option(
+              k.Name,
+              k.Id
+            );
+          }
+        }
+      };
+      districts.onchange = function () {
+        ward.length = 0;
+        const dataCity = data.filter((n) => n.Id === citis.value);
+        if (this.value != "") {
+          const dataWards = dataCity[0].Districts.filter(
+            (n) => n.Id === this.value
+          )[0].Wards;
+
+          for (const w of dataWards) {
+            wards.options[wards.options.length] = new Option(w.Name, w.Id);
+          }
+        }
+      };
+    }
     $(".modal").modal("show");
   });
 

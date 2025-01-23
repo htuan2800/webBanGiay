@@ -199,7 +199,6 @@ VALUES ('Quản lý khách hàng'),
   ('Quản lý nhân viên'),
   ('Quản lý sản phẩm'),
   ('Quản lý bán hàng'),
-  ('Quản lý nhập hàng'),
   ('Quản lý phân quyền');
 -- insert data roles--
 INSERT INTO roles (roleName)
@@ -207,9 +206,9 @@ VALUES ('Khách hàng'),
 ('Admin');
 -- insert data roleDetail--
 INSERT INTO roledetail (idRole, idPermission, idTask)
-VALUES (2, 6, 1),
-(2, 6, 2),
-(2, 6, 3);
+VALUES (2, 5, 1),
+(2, 5, 2),
+(2, 5, 3);
 -- INSERT DATA brands--
 INSERT into brands (brandName, imageLogo)
 values ('Adidas', './image/logo/adidas.webp'),
@@ -950,3 +949,6 @@ VALUES (1, './image/products/1.webp'),
   (40, './image/products/40-2.webp');
 UPDATE sizeProducts
 SET quantityRemain = 100;
+
+INSERT INTO users (idRole, users.fullName, users.phoneNumber, users.username, users.`password`)
+VALUES (2, "admin", "0123456789", "admin123", "$2y$10$bgyVh0xTbFU8kFRVan1AK.lh03ISwS53j0162crPEby.Y90k85CUC");
