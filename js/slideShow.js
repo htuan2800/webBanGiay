@@ -4,7 +4,7 @@ $(document).ready(function () {
     autoplay: true, // Tự động chuyển slide
     autoplaySpeed: 2000, // Tốc độ chuyển slide (ms)
     dots: false, // Hiện thị chấm chuyển slide (cần css lại cho đẹp hơn)
-    arrows: false, // Hiển thị mũi tên chuyển slide
+    arrows: false, // Hiển thịz mũi tên chuyển slide
     infinite: true, // Lặp lại vô tận
     speed: 500, // Tốc độ chuyển đổi slide (ms)
     slidesToShow: 1, // Số lượng slide hiển thị cùng một lúc

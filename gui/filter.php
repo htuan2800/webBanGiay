@@ -1,8 +1,16 @@
+<?php
+
+use function PHPSTORM_META\type;
+
+require_once __DIR__ . '/..\\database\\database.php';
+require_once __DIR__ . '/..\\database\\product.php';
+require_once __DIR__ . '/..\\handle.php';
+?>
 <div class="filter-lg">
     <div class="filter">
         <details class="price col-lg-12 col-md-12 col-sm-4" open>
             <summary>Giá</summary>
-            <div>
+            <!-- <div>
                 <div class="form-check">
                     <input class="form-check-input price-filter" type="checkbox" value="CURRENTPRICE < 1000000">
                     <label class="form-check-label">
@@ -39,6 +47,29 @@
                         Trên 10.000.000đ
                     </label>
                 </div>
+            </div> -->
+            <?php
+            $products = new product($db);
+            $products = $products->selectProductsByPrice(1);
+            $maxPrice = (int) ($products[0]["currentPrice"]);
+            ?>
+            <div class="range">
+                <div class="range-price-label d-flex justify-content-center py-2">
+
+                    <span class="min-price-label"><?php echo convertPrice(0) ?></span>
+                    <span class="px-1">-</span>
+                    <span class="max-price-label"><?php echo convertPrice($maxPrice) ?></span>
+                </div>
+                <div class="range-slider">
+                    <span class="range-selected"></span>
+                </div>
+
+                <div class="range-input">
+
+                    <input type="range" class="min" min="0" max="<?php echo $maxPrice ?>" value="0" step="10">
+                    <input type="range" class="max" min="0" max="<?php echo $maxPrice ?>" value="<?php echo $maxPrice ?>" step="10">
+                </div>
+
             </div>
         </details>
 
@@ -70,20 +101,20 @@
             <summary>Thiết kế</summary>
             <div>
                 <?php
-                    require_once __DIR__ . "\\..\\database\\brand.php";
-                    $brands = new brand($db);
-                    $subBrands = $brands->selectSubBrandById($_GET['idBrand']);
-                    foreach ($subBrands as $subBrand) {
+                require_once __DIR__ . "\\..\\database\\brand.php";
+                $brands = new brand($db);
+                $subBrands = $brands->selectSubBrandById($_GET['idBrand']);
+                foreach ($subBrands as $subBrand) {
                 ?>
-                <div class="form-check">
-                    <input class="form-check-input sub-brand-filter" type="checkbox"
-                        value="<?php echo $subBrand['subBrandName'] ?>">
-                    <label class="form-check-label">
-                        <?php echo $subBrand['subBrandName'] ?>
-                    </label>
-                </div>
+                    <div class="form-check">
+                        <input class="form-check-input sub-brand-filter" type="checkbox"
+                            value="<?php echo $subBrand['subBrandName'] ?>">
+                        <label class="form-check-label">
+                            <?php echo $subBrand['subBrandName'] ?>
+                        </label>
+                    </div>
                 <?php
-                    }
+                }
                 ?>
             </div>
         </details>

@@ -15,7 +15,7 @@ $(document).ready(function () {
 
     // validate phone number
     function validatePhone(phone) {
-        var re = /^0[0-9]{9,10}$/;
+        var re = /(03|05|07|08|09|01[2|6|8|9])+([0-9]{8})\b/;
         return re.test(phone) ? "" : "Số điện thoại không hợp lệ!";
     }
 

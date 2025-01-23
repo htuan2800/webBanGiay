@@ -133,9 +133,9 @@
             </div>
 
             <div class="btn-payment">
-                <div class="text">Hình thức thanh toán:</div>
-                <button type="submit" class="btn-buy-product">Thanh toán khi nhận hàng</button>
-                <div class="online-payment row">
+             
+                <button type="submit" class="btn-buy-product">Thanh toán </button>
+                <!-- <div class="online-payment row">
                     <div class="col-lg-4 col-md-4 col-sm-4">
                         <a href="" data-bs-toggle="tooltip" data-bs-placement="top"
                             data-bs-custom-class="custom-tooltip" data-bs-title="Thanh toán qua VNPAY">
@@ -155,7 +155,7 @@
                             <img src="./napas.jpg" alt="" class="img-fluid">
                         </a>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>

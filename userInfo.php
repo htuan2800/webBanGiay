@@ -52,7 +52,7 @@
                 <a class="load-link selected" href="./gui/userInfo.php">Thông tin người dùng</a>
                 <a class="load-link" href="./gui/addressInfo.php">Địa chỉ đặt hàng</a>
                 <a class="load-link" href="./gui/infoBillUser.php">Thông tin đơn hàng</a>
-                <a class="load-link" href="">Thống kê mua hàng</a>
+             
                 <a href="./logout.php" id="logout" style="color: red">đăng xuất</a>
             </div>
         </div>

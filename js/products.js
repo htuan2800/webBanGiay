@@ -111,7 +111,6 @@ $(document).ready(function () {
   //   filter other
   $(".filter").on("change", "input", function () {
     let filter = getFilter();
-
     var designType = new URLSearchParams(window.location.search).get(
       "designType"
     );

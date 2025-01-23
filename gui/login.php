@@ -1,7 +1,7 @@
 <?php
     require_once "../database/database.php";
     require_once "../database/user.php";
-    require_once "./googleLogin.php";
+    // require_once "./googleLogin.php";
 
     $db = new Database();
     $user = new user($db);
@@ -38,17 +38,9 @@
                     <span class="error"></span>
                 </div>
 
-                <div class="register">
-                    <a href="#">Quên mật khẩu?</a>
-                </div>
-
+             
                 <button type="submit" class="btn btn-primary" id="submit-login">Đăng nhập</button>
 
-                <div class="social">
-                    <span>hoặc</span>
-                    <a href="<?php echo $login_href ?>"><img src="./image/logo/sign-in-with-google.png" alt=""
-                            class="img-fluid"></a>
-                </div>
             </form>
         </div>
     </div>

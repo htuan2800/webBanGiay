@@ -79,6 +79,7 @@
     <!-- sweetalert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+    
     <!-- custom css -->
     <link rel="stylesheet" href="./css/navbar.css">
     <link rel="stylesheet" href="./css/main.css">
