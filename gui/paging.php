@@ -9,6 +9,7 @@
 
     $sql = "SELECT * FROM products JOIN imageProductS
             ON products.idProduct = imageProductS.idProduct
+            JOIN sizeProductS ON products.idProduct = sizeProductS.idProduct
             WHERE PRODUCTS.STATUS = 1 AND
             idBrand = $brand";
     if (isset($_GET['designType']) && $_GET['designType'] !== '') {
@@ -19,6 +20,11 @@
     if (isset($_GET['queryPrice']) && $_GET['queryPrice'] !== '') {
         $queryPrice = $_GET['queryPrice'];
         $sql = $sql . " AND $queryPrice";
+    }
+
+    if (isset($_GET['querySize']) && $_GET['querySize'] !== '') {
+        $querySize = $_GET['querySize'];
+        $sql = $sql . " AND $querySize";
     }
 
     $sql = $sql . " GROUP BY products.idProduct";

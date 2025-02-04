@@ -67,7 +67,8 @@ require_once __DIR__ . '/..\\handle.php';
                 <div class="range-input">
 
                     <input type="range" class="min" min="0" max="<?php echo $maxPrice ?>" value="0" step="10">
-                    <input type="range" class="max" min="0" max="<?php echo $maxPrice ?>" value="<?php echo $maxPrice ?>" step="10">
+                    <input type="range" class="max" min="0" max="<?php echo $maxPrice ?>"
+                        value="<?php echo $maxPrice ?>" step="10">
                 </div>
 
             </div>
@@ -77,27 +78,30 @@ require_once __DIR__ . '/..\\handle.php';
             <summary>Size</summary>
             <div>
                 <div class="form-check">
-                    <input class="form-check-input size-filter" type="checkbox" value="">
+                    <input class="form-check-input size-filter" type="checkbox"
+                        value="sizeProducts.size BETWEEN 36 AND 40">
                     <label class="form-check-label">
-                        36
+                        36 - 40
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input size-filter" type="checkbox" value="">
+                    <input class="form-check-input size-filter" type="checkbox"
+                        value="sizeProducts.size BETWEEN 40 AND 44">
                     <label class="form-check-label">
-                        37
+                        40 - 44
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input size-filter" type="checkbox" value="">
+                    <input class="form-check-input size-filter" type="checkbox"
+                        value="sizeProducts.size BETWEEN 44 AND 48">
                     <label class="form-check-label">
-                        38
+                        44 - 48
                     </label>
                 </div>
             </div>
         </details>
 
-        <details class="sub-brand col-lg-12 col-md-12 col-sm-4" open>
+        <!-- <details class="sub-brand col-lg-12 col-md-12 col-sm-4" open>
             <summary>Thiết kế</summary>
             <div>
                 <?php
@@ -106,18 +110,18 @@ require_once __DIR__ . '/..\\handle.php';
                 $subBrands = $brands->selectSubBrandById($_GET['idBrand']);
                 foreach ($subBrands as $subBrand) {
                 ?>
-                    <div class="form-check">
-                        <input class="form-check-input sub-brand-filter" type="checkbox"
-                            value="<?php echo $subBrand['subBrandName'] ?>">
-                        <label class="form-check-label">
-                            <?php echo $subBrand['subBrandName'] ?>
-                        </label>
-                    </div>
+                <div class="form-check">
+                    <input class="form-check-input sub-brand-filter" type="checkbox"
+                        value="<?php echo $subBrand['subBrandName'] ?>">
+                    <label class="form-check-label">
+                        <?php echo $subBrand['subBrandName'] ?>
+                    </label>
+                </div>
                 <?php
                 }
                 ?>
             </div>
-        </details>
+        </details> -->
     </div>
 </div>
 

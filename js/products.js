@@ -85,12 +85,24 @@ $(document).ready(function () {
     var designType = new URLSearchParams(window.location.search).get(
       "designType"
     );
+    let querySize = "";
     var idBrand = new URLSearchParams(window.location.search).get("idBrand");
 
     $(".pagination .page-item").removeClass("active");
     $(".pagination .page-item").eq(1).addClass("active");
     $(".pagination .page-item.previous").addClass("disabled");
     $(".pagination .page-item.next").removeClass("disabled");
+
+    if (obj.querySize.length !== 0) {
+      for (let i = 0; i < obj.querySize.length; i++) {
+        if (i === obj.querySize.length - 1) {
+          querySize += obj.querySize[i];
+        } else {
+          querySize += obj.querySize[i] + " OR ";
+        }
+      }
+      querySize = "(" + querySize + ")";
+    }
 
     $.ajax({
       type: "GET",
@@ -100,6 +112,8 @@ $(document).ready(function () {
         designType: designType,
         idBrand: idBrand,
         queryOrder: obj.queryOrder,
+        queryPrice: obj.queryPrice,
+        querySize: querySize,
       },
       dataType: "html",
       success: function (response) {
@@ -114,12 +128,24 @@ $(document).ready(function () {
     var designType = new URLSearchParams(window.location.search).get(
       "designType"
     );
+    let querySize = "";
     var idBrand = new URLSearchParams(window.location.search).get("idBrand");
 
     $(".pagination .page-item").removeClass("active");
     $(".pagination .page-item").eq(1).addClass("active");
     $(".pagination .page-item.previous").addClass("disabled");
     $(".pagination .page-item.next").removeClass("disabled");
+
+    if (filter.querySize.length !== 0) {
+      for (let i = 0; i < filter.querySize.length; i++) {
+        if (i === filter.querySize.length - 1) {
+          querySize += filter.querySize[i];
+        } else {
+          querySize += filter.querySize[i] + " OR ";
+        }
+      }
+      querySize = "(" + querySize + ")";
+    }
 
     $.ajax({
       type: "GET",
@@ -130,11 +156,12 @@ $(document).ready(function () {
         idBrand: idBrand,
         queryOrder: filter.queryOrder,
         queryPrice: filter.queryPrice,
+        querySize: querySize,
       },
       dataType: "html",
-      success: function (response) {
-        $(".show-product").html(response);
-      },
+    }).then((response) => {
+      // console.log(response);
+      $(".show-product").html(response);
     });
 
     $.ajax({
@@ -144,10 +171,68 @@ $(document).ready(function () {
         idBrand: idBrand,
         designType: designType,
         queryPrice: filter.queryPrice,
+        querySize: querySize,
       },
       dataType: "html",
     }).then((response) => {
-      console.log(response);
+      // console.log(response);
+      $(".paging").html(response);
+    });
+  });
+
+  // filter size
+  $(".filter").on("change", ".size input", function () {
+    let filter = getFilter();
+    var designType = new URLSearchParams(window.location.search).get(
+      "designType"
+    );
+    let querySize = "";
+    var idBrand = new URLSearchParams(window.location.search).get("idBrand");
+
+    $(".pagination .page-item").removeClass("active");
+    $(".pagination .page-item").eq(1).addClass("active");
+    $(".pagination .page-item.previous").addClass("disabled");
+    $(".pagination .page-item.next").removeClass("disabled");
+
+    if (filter.querySize.length !== 0) {
+      for (let i = 0; i < filter.querySize.length; i++) {
+        if (i === filter.querySize.length - 1) {
+          querySize += filter.querySize[i];
+        } else {
+          querySize += filter.querySize[i] + " OR ";
+        }
+      }
+      querySize = "(" + querySize + ")";
+    }
+
+    $.ajax({
+      type: "GET",
+      url: "./database/ajaxProducts.php",
+      data: {
+        page: 1,
+        designType: designType,
+        idBrand: idBrand,
+        queryOrder: filter.queryOrder,
+        queryPrice: filter.queryPrice,
+        querySize: querySize,
+      },
+      dataType: "html",
+    }).then((response) => {
+      $(".show-product").html(response);
+    });
+
+    $.ajax({
+      type: "GET",
+      url: "./gui/paging.php",
+      data: {
+        idBrand: idBrand,
+        designType: designType,
+        queryPrice: filter.queryPrice,
+        querySize: querySize,
+      },
+      dataType: "html",
+    }).then((response) => {
+      // console.log(response);
       $(".paging").html(response);
     });
   });

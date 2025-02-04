@@ -19,6 +19,7 @@
 
         $sql = "SELECT * FROM products JOIN imageProductS
         ON products.idProduct = imageProductS.idProduct
+        JOIN sizeProductS ON products.idProduct = sizeProductS.idProduct
         WHERE PRODUCTS.STATUS = 1 AND
         idBrand = $brand";
         if ($designType != "") {
@@ -26,6 +27,9 @@
         }
         if ($queryPrice != "") {
             $sql = $sql . " AND $queryPrice";
+        }
+        if ($querySize != "") {
+            $sql = $sql . " AND $querySize";
         }
         $sql = $sql . " GROUP BY products.idProduct";
         if ($queryOrder != "") {

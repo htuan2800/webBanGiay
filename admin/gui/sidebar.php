@@ -189,6 +189,41 @@
             <?php
                     if ($value['idPermission'] == 5) {
             ?>
+            <li class="nav-item">
+                <a data-bs-toggle="collapse" href="#manage-receipt">
+                    <i class="fas fa-copy"></i>
+                    <p>Nhập hàng</p>
+                    <span class="caret"></span>
+                </a>
+                <div class="collapse" id="manage-receipt">
+                    <ul class="nav nav-collapse">
+                        <?php
+                            if ($value['idTask'] == 1) {
+                        ?>
+                        <li>
+                            <a href="maps/googlemaps.html">
+                                <span class="sub-item">Nhập hàng</span>
+                            </a>
+                        </li>
+                        <?php
+                            }
+                        ?>
+                        <li>
+                            <a href="maps/jsvectormap.html">
+                                <span class="sub-item">Thông tin nhập hàng</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+            <?php
+                    }
+            ?>
+
+            <?php
+                    if ($value['idPermission'] == 6) {
+            ?>
 
             <li class="nav-item">
                 <a data-bs-toggle="collapse" href="#manage-authorize">

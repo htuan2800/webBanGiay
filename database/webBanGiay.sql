@@ -199,6 +199,7 @@ VALUES ('Quản lý khách hàng'),
   ('Quản lý nhân viên'),
   ('Quản lý sản phẩm'),
   ('Quản lý bán hàng'),
+  ('Quản lý nhập hàng'),
   ('Quản lý phân quyền');
 -- insert data roles--
 INSERT INTO roles (roleName)
@@ -206,9 +207,9 @@ VALUES ('Khách hàng'),
 ('Admin');
 -- insert data roleDetail--
 INSERT INTO roledetail (idRole, idPermission, idTask)
-VALUES (2, 5, 1),
-(2, 5, 2),
-(2, 5, 3);
+VALUES (2, 6, 1),
+(2, 6, 2),
+(2, 6, 3);
 -- INSERT DATA brands--
 INSERT into brands (brandName, imageLogo)
 values ('Adidas', './image/logo/adidas.webp'),
