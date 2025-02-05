@@ -93,12 +93,13 @@ class product
         }
         return $products;
     }
-    public function selectProductsByPrice($limit)
+    public function selectProductsByPrice($idBrand, $limit)
     {
         $sql = "SELECT *
-            FROM products
-            WHERE products.STATUS = 1
-            ORDER BY products.currentPrice DESC LIMIT $limit";
+                FROM products
+                WHERE products.STATUS = 1 AND products.idBrand = $idBrand
+                ORDER BY products.currentPrice DESC LIMIT $limit";
+
         $result = $this->db->selectAll($sql);
         $products = [];
         while ($row = $result->fetch_assoc()) {
@@ -151,6 +152,12 @@ class product
             $sql = "UPDATE products SET currentPrice = $price
                 WHERE idProduct = $id";
         }
+        return $this->db->update($sql);
+    }
+    public function updateQuantityProduct($idProduct, $quantity, $size)
+    {
+        $sql = "UPDATE sizeproducts set quantityRemain = quantityRemain-$quantity
+        where idProduct= $idProduct and size= $size ";
         return $this->db->update($sql);
     }
 

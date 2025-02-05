@@ -66,7 +66,8 @@ $(document).ready(function () {
             var address = $("#address").val();
             var phone = $("#phone-number").val();
             var total = Number($(".show-product .price").text().replace(/đ|\./g, ""));
-            var products = new URL(window.location.href).searchParams.get("products");
+            var products = new URL(window.location.href).searchParams.get
+                ("products");
             $.ajax({
                 type: "POST",
                 url: "./buyProduct.php",
@@ -81,6 +82,7 @@ $(document).ready(function () {
                 },
                 dataType: "html",
                 success: function (response) {
+
                     Swal.fire({
                         position: "top-end",
                         icon: "success",
@@ -94,6 +96,7 @@ $(document).ready(function () {
                             window.location.href = "./index.php";
                         }
                     })
+                    console.log(response)
                 }
             });
         }

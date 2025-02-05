@@ -50,7 +50,8 @@ require_once __DIR__ . '/..\\handle.php';
             </div> -->
             <?php
             $products = new product($db);
-            $products = $products->selectProductsByPrice(1);
+
+            $products = $products->selectProductsByPrice((int) $_GET['idBrand'], 1);
             $maxPrice = (int) ($products[0]["currentPrice"]);
             ?>
             <div class="range">

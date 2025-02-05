@@ -1,44 +1,54 @@
 <?php
-    // include file database
-    require_once('./database/database.php');
-    require_once('./database/cart.php');
-    require_once('./handle.php');
+// include file database
+require_once('./database/database.php');
+require_once('./database/cart.php');
+require_once('./database/product.php');
+require_once('./handle.php');
 
-    $db = new database();
+$db = new database();
+$cart = new cart($db);
+
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
+// get products from url
+if (isset($_GET['products'])) {
+
+    $encoded_json = $_GET['products'];
+    $decoded_json = urldecode(base64_decode($encoded_json));
+    $products = json_decode($decoded_json, true);
+    $result = $cart->selectProductToBuy($products, $_SESSION['account_login']['idUser']);
+    // print_r($result->fetch_assoc());
+}
+
+// insert bill
+if (isset($_POST['buy-product'])) {
+    require_once('./database/bill.php');
+
     $cart = new cart($db);
+    $bill = new bill($db);
+    $product = new product($db);
 
-    if (session_status() == PHP_SESSION_NONE) {
-        session_start();
+    $encoded_json = $_POST['products'];
+    $decoded_json = urldecode(base64_decode($encoded_json));
+    $products = json_decode($decoded_json, true);
+    $receiver = $_POST['receiver'];
+    $address = $_POST['address'];
+    $phoneNumber = $_POST['phone'];
+    $total = $_POST['total'];
+    $paymentMethod = $_POST['payment-method'];
+    $result = $cart->selectProductToBuy($products, $_SESSION['account_login']['idUser']);
+    $id = $bill->insertBill($_SESSION['account_login']['idUser'], $receiver, $address, $phoneNumber, $total, $paymentMethod, $products, $cart);
+    if ($id) {
+        foreach ($result as $value) {
+            $product->updateQuantityProduct($value["idProduct"], $value["quantity"], $value["size"]);
+        }
     }
-
-    // get products from url
-    if (isset ($_GET['products'])) {
-
-        $encoded_json = $_GET['products'];
-        $decoded_json = urldecode(base64_decode($encoded_json));
-        $products = json_decode($decoded_json, true);
-
-        $result = $cart->selectProductToBuy($products, $_SESSION['account_login']['idUser']);
-    }
-
-    // insert bill
-    if (isset($_POST['buy-product'])) {
-        require_once('./database/bill.php');
-        $bill = new bill($db);
-
-        $encoded_json = $_POST['products'];
-        $decoded_json = urldecode(base64_decode($encoded_json));
-        $products = json_decode($decoded_json, true);
-        $receiver = $_POST['receiver'];
-        $address = $_POST['address'];
-        $phoneNumber = $_POST['phone'];
-        $total = $_POST['total'];
-        $paymentMethod = $_POST['payment-method'];
-
-        $id = $bill->insertBill($_SESSION['account_login']['idUser'],$receiver, $address, $phoneNumber, $total, $paymentMethod, $products,$cart);
-        echo $id;
-        exit();
-    }
+    echo $id;
+    print_r($products);
+    exit();
+}
 ?>
 
 <!DOCTYPE html>
@@ -71,28 +81,28 @@
 
             <div class="products">
                 <?php
-                    $total = 0;
-                    foreach ($result as $key => $value) {
+                $total = 0;
+                foreach ($result as $key => $value) {
                 ?>
-                <div class="product-item row">
-                    <div class="product-image col-lg-3 col-md-3 col-sm-3">
-                        <img src="<?php echo $value['image']; ?>" alt="" class="img-fluid">
-                    </div>
-                    <div class="product-info col-lg-6 col-md-6 col-sm-6">
-                        <div class="product-name">
-                            <?php echo $value['productName']; ?>
+                    <div class="product-item row">
+                        <div class="product-image col-lg-3 col-md-3 col-sm-3">
+                            <img src="<?php echo $value['image']; ?>" alt="" class="img-fluid">
                         </div>
-                        <div class="product-size">
-                            Size: <?php echo $value['size']; ?>
+                        <div class="product-info col-lg-6 col-md-6 col-sm-6">
+                            <div class="product-name">
+                                <?php echo $value['productName']; ?>
+                            </div>
+                            <div class="product-size">
+                                Size: <?php echo $value['size']; ?>
+                            </div>
+                            <div class="product-quantity">
+                                Số lượng: <?php echo $value['quantity']; ?>
+                            </div>
                         </div>
-                        <div class="product-quantity">
-                            Số lượng: <?php echo $value['quantity']; ?>
+                        <div class="product-total col-lg-3 col-md-3 col-sm-3">
+                            <?php echo convertPrice($value['totalProduct']); ?>
                         </div>
                     </div>
-                    <div class="product-total col-lg-3 col-md-3 col-sm-3">
-                        <?php echo convertPrice ($value['totalProduct']); ?>
-                    </div>
-                </div>
                 <?php
                     $total += $value['totalProduct'];
                 }
@@ -101,7 +111,7 @@
 
             <div class="total-price">
                 <span>Tổng thanh toán: </span>
-                <span class="price"><?php echo convertPrice ($total); ?></span>
+                <span class="price"><?php echo convertPrice($total); ?></span>
             </div>
 
         </div>
@@ -128,12 +138,11 @@
 
             <div class="info">
                 <?php
-                    include_once "./gui/formAddress.php";
+                include_once "./gui/formAddress.php";
                 ?>
             </div>
 
             <div class="btn-payment">
-             
                 <button type="submit" class="btn-buy-product">Thanh toán </button>
                 <!-- <div class="online-payment row">
                     <div class="col-lg-4 col-md-4 col-sm-4">

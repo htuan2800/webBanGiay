@@ -12,7 +12,7 @@ $(document).ready(function () {
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
-            confirmButtonText: "hủy",
+            confirmButtonText: "Đồng ý",
             cancelButtonText: "Hủy bỏ"
         }).then((result) => {
             if (result.isConfirmed) {
