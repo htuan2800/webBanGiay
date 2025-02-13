@@ -1,4 +1,4 @@
-<div class="page-inner info-product">
+<div class="page-inner info-supplier">
     <h3 class="page-title">Thông tin sản phẩm</h3>
 
     <div class="product-tools">
@@ -10,7 +10,7 @@
                 <option value="50">50</option>
                 <option value="100">100</option>
             </select>
-            <span>sản phẩm</span>
+            <span>nhà cung cấp</span>
         </div>
 
         <div class="search">
@@ -20,7 +20,7 @@
 
     <div class="table-product">
         <?php
-        include_once __DIR__ . "/tableProduct.php";
+        include_once __DIR__ . "/tableSupplier.php";
         ?>
     </div>
 

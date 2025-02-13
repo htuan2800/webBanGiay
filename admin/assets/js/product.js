@@ -1,6 +1,6 @@
 $(document).ready(function () {
   // load js
-  $.when($.getScript("../js/validate.js")).done(function () {});
+  $.when($.getScript("../js/validate.js")).done(function () { });
 
   // show product
   $(".main-panel").on(
@@ -81,7 +81,6 @@ $(document).ready(function () {
             text: "",
             icon: "success",
           });
-          $(this).closest("tr").remove();
           $.ajax({
             type: "POST",
             url: "./gui/tableProduct.php",
@@ -92,16 +91,15 @@ $(document).ready(function () {
             dataType: "html",
             success: function (response) {
               console.log(response);
-              if ($(".info-product tbody tr").length == 0) {
-                $.ajax({
-                  type: "POST",
-                  url: "./gui/infoProduct.php",
-                  dataType: "html",
-                  success: function (response) {
-                    $(".main-panel .container").html(response);
-                  },
-                });
-              }
+              $.ajax({
+                type: "POST",
+                url: "./gui/infoProduct.php",
+                dataType: "html",
+                success: function (response) {
+                  $(".main-panel .container").html(response);
+                },
+              });
+
             },
           });
         }
@@ -218,7 +216,9 @@ $(document).ready(function () {
       var pageCurrent = $(
         ".container .info-product .pagination li.active"
       ).text();
+
       var page = Number(pageCurrent) + 1;
+
       swapPage(page);
     }
   );
@@ -242,10 +242,10 @@ $(document).ready(function () {
           $.each(response, function (i, val) {
             $(".container .info-product .modal-dialog #type").append(
               '<option value="' +
-                val["subBrandName"] +
-                '">' +
-                val["subBrandName"] +
-                "</option>"
+              val["subBrandName"] +
+              '">' +
+              val["subBrandName"] +
+              "</option>"
             );
           });
 
@@ -266,7 +266,7 @@ $(document).ready(function () {
               idBrand: value,
             },
             dataType: "html",
-            success: function (response) {},
+            success: function (response) { },
           });
         },
       });
@@ -391,15 +391,16 @@ $(document).ready(function () {
       var idProduct = $(
         ".container .info-product .modal-dialog #quantity-sold"
       ).data("id-product");
-      $(this).parent().find("input").click();
+      $(this).parent().find("input[type=file]").click();
     }
   );
 
   $(".main-panel").on(
     "change",
-    ".container .info-product .modal-dialog #add-image",
+    ".container .info-product .modal-dialog input[type=file]",
     function (e) {
       e.preventDefault();
+      alert(1);
 
       var idProduct = $(
         ".container .info-product .modal-dialog #quantity-sold"
@@ -438,17 +439,15 @@ $(document).ready(function () {
                     <div id="${collapseId}" class="accordion-collapse collapse"
                         data-bs-parent="#accordionFlushExample">
                         <div class="accordion-body">
-                            <img src="${
-                              "." + response["image"]
-                            }" alt="" class="img-fluid" />
+                            <img src="${"." + response["image"]
+            }" alt="" class="img-fluid" />
                             <div class="btn-tools">
                                 <button class="btn btn-danger btn-delete-image"
                                     data-id="${response["id"]}">Xóa ảnh</button>
                                 <button class="btn btn-warning btn-update-image">Sửa ảnh</button>
                                 <input type="file" class="input-image" accept="image/*" name="image" id=""
-                                    style="display: none;" data-id="${
-                                      response["id"]
-                                    }">
+                                    style="display: none;" data-id="${response["id"]
+            }">
                             </div>
                         </div>
                     </div>
@@ -610,7 +609,7 @@ $(document).ready(function () {
         idProduct: id,
       },
       dataType: "html",
-      success: function (response) {},
+      success: function (response) { },
     });
 
     $(".container .info-product .modal-dialog #select-size").prepend(
@@ -645,8 +644,8 @@ $(document).ready(function () {
         console.log(response);
         $(
           '.container .info-product .modal-dialog #select-size option[value="' +
-            size +
-            '"]'
+          size +
+          '"]'
         ).remove();
         $(".container .info-product .modal-dialog #quantity").val(
           $(

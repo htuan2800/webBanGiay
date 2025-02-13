@@ -1,15 +1,14 @@
 <?php
-    if (session_status () == PHP_SESSION_NONE) {
-        session_start ();
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+if (!isset($_SESSION['account_login'])) {
+    header("location: " . "http://localhost/webBanGiay/404/");
+} else {
+    if ($_SESSION['account_login']['idRole'] == 1) {
+        header("location: " . "http://localhost/webBanGiay/404/");
     }
-    if (!isset ($_SESSION['account_login'])) {
-        header ("location: " . "http://localhost/webBanGiay/404/");
-    }
-    else {
-        if ($_SESSION['account_login']['idRole'] == 1) {
-            header ("location: " . "http://localhost/webBanGiay/404/");
-        }
-    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -24,23 +23,23 @@
     <!-- Fonts and icons -->
     <script src="assets/js/plugin/webfont/webfont.min.js"></script>
     <script>
-    WebFont.load({
-        google: {
-            families: ["Public Sans:300,400,500,600,700"]
-        },
-        custom: {
-            families: [
-                "Font Awesome 5 Solid",
-                "Font Awesome 5 Regular",
-                "Font Awesome 5 Brands",
-                "simple-line-icons",
-            ],
-            urls: ["assets/css/fonts.min.css"],
-        },
-        active: function() {
-            sessionStorage.fonts = true;
-        },
-    });
+        WebFont.load({
+            google: {
+                families: ["Public Sans:300,400,500,600,700"]
+            },
+            custom: {
+                families: [
+                    "Font Awesome 5 Solid",
+                    "Font Awesome 5 Regular",
+                    "Font Awesome 5 Brands",
+                    "simple-line-icons",
+                ],
+                urls: ["assets/css/fonts.min.css"],
+            },
+            active: function () {
+                sessionStorage.fonts = true;
+            },
+        });
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -60,7 +59,7 @@
         <!-- Sidebar -->
         <div class="sidebar" data-background-color="dark">
             <?php
-                include './gui/sidebar.php';
+            include './gui/sidebar.php';
             ?>
         </div>
         <!-- End Sidebar -->
@@ -98,20 +97,19 @@
                                     <div class="avatar-sm">
                                         <img src="
                                             <?php
-                                                if (isset ($_SESSION['account_login'])) {
-                                                    if (strpos($_SESSION['account_login']['avatar'], 'https://') !== false) {
-                                                        echo $_SESSION['account_login']['avatar'] . '?'. time();
-                                                    }
-                                                    else {
-                                                        echo '.' . $_SESSION['account_login']['avatar'] . '?'. time();
-                                                    }
+                                            if (isset($_SESSION['account_login'])) {
+                                                if (strpos($_SESSION['account_login']['avatar'], 'https://') !== false) {
+                                                    echo $_SESSION['account_login']['avatar'] . '?' . time();
+                                                } else {
+                                                    echo '.' . $_SESSION['account_login']['avatar'] . '?' . time();
                                                 }
+                                            }
                                             ?>
                                         " alt="..." class="avatar-img rounded-circle" />
                                     </div>
                                     <span class="profile-username">
                                         <span class="op-7">Hi,</span>
-                                        <span class="fw-bold"><?=$_SESSION['account_login']['fullName'];?></span>
+                                        <span class="fw-bold"><?= $_SESSION['account_login']['fullName']; ?></span>
                                     </span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-user animated fadeIn">
@@ -121,29 +119,27 @@
                                                 <div class="avatar-lg">
                                                     <img src="
                                                         <?php
-                                                            if (isset ($_SESSION['account_login'])) {
-                                                                if (strpos($_SESSION['account_login']['avatar'], 'https://') !== false) {
-                                                                    echo $_SESSION['account_login']['avatar'] . '?'. time();
-                                                                }
-                                                                else {
-                                                                    echo '.' . $_SESSION['account_login']['avatar'] . '?'. time();
-                                                                }
+                                                        if (isset($_SESSION['account_login'])) {
+                                                            if (strpos($_SESSION['account_login']['avatar'], 'https://') !== false) {
+                                                                echo $_SESSION['account_login']['avatar'] . '?' . time();
+                                                            } else {
+                                                                echo '.' . $_SESSION['account_login']['avatar'] . '?' . time();
                                                             }
+                                                        }
                                                         ?>
                                                     " alt="image profile" class="avatar-img rounded" />
                                                 </div>
                                                 <div class="u-text">
-                                                    <h4><?=$_SESSION['account_login']['fullName'];?></h4>
+                                                    <h4><?= $_SESSION['account_login']['fullName']; ?></h4>
                                                     <p class="text-muted">
                                                         <?php
-                                                            if (isset ($_SESSION['account_login'])) {
-                                                                if ($_SESSION['account_login']['email'] == '') {
-                                                                    echo $_SESSION['account_login']['phoneNumber'];
-                                                                }
-                                                                else {
-                                                                    echo $_SESSION['account_login']['email'];
-                                                                }
+                                                        if (isset($_SESSION['account_login'])) {
+                                                            if ($_SESSION['account_login']['email'] == '') {
+                                                                echo $_SESSION['account_login']['phoneNumber'];
+                                                            } else {
+                                                                echo $_SESSION['account_login']['email'];
                                                             }
+                                                        }
                                                         ?>
                                                     </p>
                                                     <a href="profile.html" class="btn btn-xs btn-secondary btn-sm">Xem
@@ -165,7 +161,7 @@
 
             <div class="container">
                 <?php
-                    include_once "./gui/statistics.php";
+                include_once "./gui/statistics.php";
                 ?>
             </div>
         </div>
@@ -273,40 +269,44 @@
     <script src="assets/js/addCollection.js"></script>
     <script src="assets/js/role.js"></script>
     <script src="assets/js/addRole.js"></script>
+    <script src="assets/js/addSupplier.js"></script>
     <script src="assets/js/staff.js"></script>
     <script src="assets/js/addStaff.js"></script>
     <script type="module" src="assets/js/order.js"></script>
     <script src="assets/js/orderApproval.js"></script>
     <script src="assets/js/orderDelivery.js"></script>
     <script src="assets/js/brand.js"></script>
+    <script src="assets/js/importProduct.js"></script>
+    <script src="assets/js/receipt.js"></script>
+    <script src="assets/js/supplier.js"></script>
 
     <script>
-    $("#lineChart").sparkline([102, 109, 120, 99, 110, 105, 115], {
-        type: "line",
-        height: "70",
-        width: "100%",
-        lineWidth: "2",
-        lineColor: "#177dff",
-        fillColor: "rgba(23, 125, 255, 0.14)",
-    });
+        $("#lineChart").sparkline([102, 109, 120, 99, 110, 105, 115], {
+            type: "line",
+            height: "70",
+            width: "100%",
+            lineWidth: "2",
+            lineColor: "#177dff",
+            fillColor: "rgba(23, 125, 255, 0.14)",
+        });
 
-    $("#lineChart2").sparkline([99, 125, 122, 105, 110, 124, 115], {
-        type: "line",
-        height: "70",
-        width: "100%",
-        lineWidth: "2",
-        lineColor: "#f3545d",
-        fillColor: "rgba(243, 84, 93, .14)",
-    });
+        $("#lineChart2").sparkline([99, 125, 122, 105, 110, 124, 115], {
+            type: "line",
+            height: "70",
+            width: "100%",
+            lineWidth: "2",
+            lineColor: "#f3545d",
+            fillColor: "rgba(243, 84, 93, .14)",
+        });
 
-    $("#lineChart3").sparkline([105, 103, 123, 100, 95, 105, 115], {
-        type: "line",
-        height: "70",
-        width: "100%",
-        lineWidth: "2",
-        lineColor: "#ffa534",
-        fillColor: "rgba(255, 165, 52, .14)",
-    });
+        $("#lineChart3").sparkline([105, 103, 123, 100, 95, 105, 115], {
+            type: "line",
+            height: "70",
+            width: "100%",
+            lineWidth: "2",
+            lineColor: "#ffa534",
+            fillColor: "rgba(255, 165, 52, .14)",
+        });
     </script>
 </body>
 

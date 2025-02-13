@@ -101,6 +101,31 @@ CREATE TABLE `billDetail` (
   `quantity` int,
   `total` int
 );
+CREATE TABLE `receipts` (
+  `idReceipt` int PRIMARY KEY AUTO_INCREMENT,
+  `idUser` int,
+  `idSupplier` int,
+  `staff` varchar(100),
+  `totalReceipt` double,
+  `statusRemove` int DEFAULT 0,
+  `createTime` timestamp DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE `suppliers` (
+    `idSupplier` INT AUTO_INCREMENT PRIMARY KEY,
+    `nameSupplier` VARCHAR(255) NOT NULL,
+    `phoneNumber` VARCHAR(20),
+    `email` VARCHAR(255),
+    `addressSupplier` varchar(250),
+  `statusRemove` int DEFAULT 0,
+    `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE `receiptDetail` (
+  `idReceipt` int,
+  `idProduct` int,
+  `size` int,
+  `quantity` int,
+  `total` int
+);
 CREATE TABLE `userShippingAddress` (
   `idAddress` int PRIMARY KEY AUTO_INCREMENT,
   `idUser` int,
@@ -143,9 +168,17 @@ ALTER TABLE `cartDetail`
 ADD FOREIGN KEY (`idProduct`) REFERENCES `products` (`idProduct`);
 ALTER TABLE `bills`
 ADD FOREIGN KEY (`idUser`) REFERENCES `users` (`idUser`);
+ALTER TABLE `receipts`
+ADD FOREIGN KEY (`idUser`) REFERENCES `users` (`idUser`);
+ALTER TABLE `receipts`
+ADD FOREIGN KEY (`idSupplier`) REFERENCES `suppliers` (`idSupplier`);
 ALTER TABLE `billDetail`
 ADD FOREIGN KEY (`idBill`) REFERENCES `bills` (`idBill`);
+ALTER TABLE `receiptDetail`
+ADD FOREIGN KEY (`idReceipt`) REFERENCES `receipts` (`idReceipt`);
 ALTER TABLE `billDetail`
+ADD FOREIGN KEY (`idProduct`) REFERENCES `products` (`idProduct`);
+ALTER TABLE `receiptDetail`
 ADD FOREIGN KEY (`idProduct`) REFERENCES `products` (`idProduct`);
 ALTER TABLE `userShippingAddress`
 ADD FOREIGN KEY (`idUser`) REFERENCES `users` (`idUser`);
@@ -201,7 +234,8 @@ VALUES ('Quản lý khách hàng'),
   ('Quản lý bán hàng'),
   ('Quản lý nhập hàng'),
   ('Quản lý phân quyền'),
-  ("Quản lý danh mục");
+  ('Quản lý danh mục'),
+  ('Quản lý nhà cung cấp');
 -- insert data roles--
 INSERT INTO roles (roleName)
 VALUES ('Khách hàng'),
@@ -954,3 +988,9 @@ SET quantityRemain = 100;
 
 INSERT INTO users (idRole, users.fullName, users.phoneNumber, users.username, users.`password`)
 VALUES (2, "admin", "0123456789", "admin123", "$2y$10$bgyVh0xTbFU8kFRVan1AK.lh03ISwS53j0162crPEby.Y90k85CUC");
+
+INSERT INTO suppliers (nameSupplier, phoneNumber, email,addressSupplier)
+VALUES ('Golden Road Fashion', "0123456789", "goldenroadfashion@gmail.com", "36 Phan Huy Ich P15 QTanBinh TP Ho Chi Minh"),
+('Supersports Vietnam', "02466892228", "ce@supersports.com.vn", "TTTM Lotte Mall Tây Hồ, Hà Nội"),
+('The Fire Monkey', "0983151780", "tfm3017@gmail.com", "24 khối 1B, Đông Anh, Hà Nội"),
+('G-Lab', "0945378809", "glabvn@gmail.com", "135/58 Trần Hưng Đạo, Phường Cầu Ông Lãnh, Quận 1, TP. Hồ Chí Minh");

@@ -31,11 +31,11 @@ $(document).ready(function () {
             });
             return;
         }
-        if (isNaN(size)) {
+        if (isNaN(size) || size < 0) {
             Swal.fire({
                 icon: 'error',
                 title: 'Dữ liệu không hợp lệ!',
-                text: 'Size phải là số',
+                text: 'Size phải là số nguyên dương',
             });
             return;
         }
@@ -135,11 +135,11 @@ $(document).ready(function () {
             });
             return;
         }
-        if (isNaN(price)) {
+        if (isNaN(price) || price < 0) {
             Swal.fire({
                 icon: 'error',
                 title: 'Dữ liệu không hợp lệ!',
-                text: 'Giá phải là số',
+                text: 'Giá phải là số nguyên dươngdương',
             });
             return;
         }

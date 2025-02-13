@@ -233,17 +233,17 @@ if (isset($_SESSION['account_login'])) {
                             <ul class="nav nav-collapse">
                                 <?php
                                 if ($value['idTask'] == 1) {
-                                ?>
+                                    ?>
                                     <li>
-                                        <a href="maps/googlemaps.html">
+                                        <a href="./gui/importProducts.php">
                                             <span class="sub-item">Nhập hàng</span>
                                         </a>
                                     </li>
-                                <?php
+                                    <?php
                                 }
                                 ?>
                                 <li>
-                                    <a href="maps/jsvectormap.html">
+                                    <a href="./gui/infoReceipt.php">
                                         <span class="sub-item">Thông tin nhập hàng</span>
                                     </a>
                                 </li>
@@ -287,10 +287,45 @@ if (isset($_SESSION['account_login'])) {
                         </div>
                     </li>
 
-                <?php
+                    <?php
                 }
                 ?>
-            <?php
+                <?php
+                if ($value['idPermission'] == 8) {
+                    ?>
+                    <li class="nav-item">
+                        <a data-bs-toggle="collapse" href="#manage-supplier">
+                            <i class="fas fa-copy"></i>
+                            <p>Thông tin nhà cung cấp</p>
+                            <span class="caret"></span>
+                        </a>
+                        <div class="collapse" id="manage-supplier">
+                            <ul class="nav nav-collapse">
+                                <?php
+                                if ($value['idTask'] == 1) {
+                                    ?>
+                                    <li>
+                                        <a href="./gui/infoSupplier.php">
+                                            <span class="sub-item">Thông tin nhà cung cấp</span>
+                                        </a>
+                                    </li>
+                                    <?php
+                                }
+                                ?>
+                                <li>
+                                    <a href="./gui/addSupplier.php">
+                                        <span class="sub-item">Thêm nhà cung</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <?php
+                }
+                ?>
+                <?php
+
             }
             ?>
         </ul>

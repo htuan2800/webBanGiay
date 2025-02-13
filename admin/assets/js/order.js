@@ -17,6 +17,7 @@ $(document).ready(function () {
     }
 
     // show row of page
+
     showRow('.info-order-approval .order-approval-tools #itemOfPage', './gui/tableOrderApproval.php', '.info-order-approval .table-order-approval', '.info-order-approval .pagination ul.pagination')
 
     showRow('.info-order-delivery .order-delivery-tools #itemOfPage', './gui/tableOrderdelivery.php', '.info-order-delivery .table-order-delivery', '.info-order-delivery .pagination ul.pagination')
@@ -24,6 +25,7 @@ $(document).ready(function () {
     showRow('.info-order-deliveried .order-deliveried-tools #itemOfPage', './gui/tableOrderdeliveried.php', '.info-order-deliveried .table-order-deliveried', '.info-order-deliveried .pagination ul.pagination')
 
     // swap page
+
     swapPage('.info-order-approval .pagination ul.pagination .page-item .page-link:not(.previous):not(.next)', '.info-order-approval .pagination ul.pagination .page-item', "./gui/tableOrderApproval.php", '.info-order-approval .order-approval-tools #itemOfPage', '.info-order-approval .table-order-approval')
 
     swapPage('.info-order-delivery .pagination ul.pagination .page-item .page-link:not(.previous):not(.next)', '.info-order-delivery .pagination ul.pagination .page-item', "./gui/tableOrderdelivery.php", '.info-order-delivery .order-delivery-tools #itemOfPage', '.info-order-delivery .table-order-delivery')
@@ -31,6 +33,7 @@ $(document).ready(function () {
     swapPage('.info-order-deliveried .pagination ul.pagination .page-item .page-link:not(.previous):not(.next)', '.info-order-deliveried .pagination ul.pagination .page-item', "./gui/tableOrderdeliveried.php", '.info-order-deliveried .order-deliveried-tools #itemOfPage', '.info-order-deliveried .table-order-deliveried')
 
     // next page
+
     nextPage('.info-order-approval .pagination ul.pagination .page-item .page-link.next', '.info-order-approval .pagination ul.pagination .page-item.active a', '.info-order-approval .pagination ul.pagination .page-item', "./gui/tableOrderApproval.php", '.info-order-approval .order-approval-tools #itemOfPage', ".info-order-approval .table-order-approval")
 
     nextPage('.info-order-delivery .pagination ul.pagination .page-item .page-link.next', '.info-order-delivery .pagination ul.pagination .page-item.active a', '.info-order-delivery .pagination ul.pagination .page-item', "./gui/tableOrderdelivery.php", '.info-order-delivery .order-delivery-tools #itemOfPage', ".info-order-delivery .table-order-delivery")
@@ -38,6 +41,7 @@ $(document).ready(function () {
     nextPage('.info-order-deliveried .pagination ul.pagination .page-item .page-link.next', '.info-order-deliveried .pagination ul.pagination .page-item.active a', '.info-order-deliveried .pagination ul.pagination .page-item', "./gui/tableOrderdeliveried.php", '.info-order-deliveried .order-deliveried-tools #itemOfPage', ".info-order-deliveried .table-order-deliveried")
 
     // previous page
+
     previousPage('.info-order-approval .pagination ul.pagination .page-item .page-link.previous', '.info-order-approval .pagination ul.pagination .page-item.active a', '.info-order-approval .pagination ul.pagination .page-item', "./gui/tableOrderApproval.php", '.info-order-approval .order-approval-tools #itemOfPage', ".info-order-approval .table-order-approval")
 
     previousPage('.info-order-delivery .pagination ul.pagination .page-item .page-link.previous', '.info-order-delivery .pagination ul.pagination .page-item.active a', '.info-order-delivery .pagination ul.pagination .page-item', "./gui/tableOrderdelivery.php", '.info-order-delivery .order-delivery-tools #itemOfPage', ".info-order-delivery .table-order-delivery")
