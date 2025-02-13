@@ -200,7 +200,8 @@ VALUES ('Quản lý khách hàng'),
   ('Quản lý sản phẩm'),
   ('Quản lý bán hàng'),
   ('Quản lý nhập hàng'),
-  ('Quản lý phân quyền');
+  ('Quản lý phân quyền'),
+  ("Quản lý danh mục");
 -- insert data roles--
 INSERT INTO roles (roleName)
 VALUES ('Khách hàng'),

@@ -27,7 +27,7 @@
     }
 
     $page = (int) isset($_POST['page']) ? $_POST['page'] : 1;
-    $itemOfPage = (int) isset($_POST['itemOfPage']) ? $_POST['itemOfPage'] : 1;
+    $itemOfPage = (int) isset($_POST['itemOfPage']) ? $_POST['itemOfPage'] : 10;
 
     $sql = "SELECT * FROM BILLS
     WHERE STATUSBILL >= 4

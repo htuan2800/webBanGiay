@@ -1,37 +1,37 @@
 <?php
 
-    require_once __DIR__ . "/../../database/database.php";
-    require_once __DIR__ . "/../../database/product.php";
-    require_once __DIR__ . "\\..\\..\\handle.php";
+require_once __DIR__ . "/../../database/database.php";
+require_once __DIR__ . "/../../database/product.php";
+require_once __DIR__ . "\\..\\..\\handle.php";
 
-    $db = new database();
+$db = new database();
 
-    $product = new product($db);
-        
-    if (isset($_POST['delete-product'])) {
-        $id = $_POST['id'];
-        $product->deleteProduct($id);
-        exit ();
-    }
+$product = new product($db);
 
-    $page = (int) isset($_POST['page']) ? $_POST['page'] : 1;
-    $itemOfPage = (int) isset($_POST['itemOfPage']) ? $_POST['itemOfPage'] : 10;
-    $valueSearch = isset($_POST['valueSearch']) ? $_POST['valueSearch'] : "";
+if (isset($_POST['delete-product'])) {
+    $id = $_POST['id'];
+    $product->deleteProduct($id);
+    exit();
+}
 
-    $sql = "SELECT * FROM products
+$page = (int) isset($_POST['page']) ? $_POST['page'] : 1;
+$itemOfPage = (int) isset($_POST['itemOfPage']) ? $_POST['itemOfPage'] : 10;
+$valueSearch = isset($_POST['valueSearch']) ? $_POST['valueSearch'] : "";
+
+$sql = "SELECT * FROM products
     JOIN BRANDS ON products.idBrand = BRANDS.idBrand
     JOIN imageProductS ON products.idProduct = imageProductS.idProduct
     WHERE products.STATUS = 1";
 
-    if ($valueSearch != "") {
-        $sql .= " AND products.productName like '%$valueSearch%'";
-    }
+if ($valueSearch != "") {
+    $sql .= " AND products.productName like '%$valueSearch%'";
+}
 
-    $sql .= " GROUP BY products.idProduct
+$sql .= " GROUP BY products.idProduct
     ORDER BY products.idProduct DESC ";
-    $sql .= " LIMIT " . ($page - 1) * $itemOfPage . ", " . $itemOfPage . " ";
+$sql .= " LIMIT " . ( $page - 1) * $itemOfPage . ", " .  $itemOfPage . " ";
 
-    $products = $product->selectByCondition($sql);
+$products = $product->selectByCondition($sql);
 
 ?>
 
@@ -50,51 +50,51 @@
         </thead>
         <tbody>
             <?php
-                if ($products->num_rows < 0) {
+            if ($products->num_rows < 0) {
             ?>
 
-            <tr>
-                <td colspan="7">Không tìm thấy sản phẩm</td>
-            </tr>
+                <tr>
+                    <td colspan="7">Không tìm thấy sản phẩm</td>
+                </tr>
 
 
             <?php
-                }
-                foreach ($products as $product) {
+            }
+            foreach ($products as $product) {
             ?>
-            <tr>
-                <td>
-                    <?php echo $product['brandName'] ?>
-                </td>
-                <td>
-                    <?php echo $product['productName'] ?>
-                </td>
-                <td>
-                    <?php echo $product['designType'] ?>
-                </td>
-                <td>
-                    <?php echo convertPrice($product['currentPrice']); ?>
-                </td>
-                <td>
-                    <?php
-                            $image = '.' . $product['image'] . "?" . time();
+                <tr>
+                    <td>
+                        <?php echo $product['brandName'] ?>
+                    </td>
+                    <td>
+                        <?php echo $product['productName'] ?>
+                    </td>
+                    <td>
+                        <?php echo $product['designType'] ?>
+                    </td>
+                    <td>
+                        <?php echo convertPrice($product['currentPrice']); ?>
+                    </td>
+                    <td>
+                        <?php
+                        $image = '.' . $product['image'] . "?" . time();
                         ?>
-                    <img src="<?php echo $image ?>" alt="" width="50" height="50">
-                </td>
-                <td>
-                    <?php echo $product['quantitySold'] ?>
-                </td>
-                <td>
-                    <div class="action">
-                        <i class="fa fa-trash" data-id="<?php echo $product['idProduct'] ?>"></i>
-                        <i class="fa fa-edit" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
-                            data-id="<?php echo $product['idProduct'] ?>"></i>
-                    </div>
-                </td>
-            </tr>
+                        <img src="<?php echo $image ?>" alt="" width="50" height="50">
+                    </td>
+                    <td>
+                        <?php echo $product['quantitySold'] ?>
+                    </td>
+                    <td>
+                        <div class="action">
+                            <i class="fa fa-trash" data-id="<?php echo $product['idProduct'] ?>"></i>
+                            <i class="fa fa-edit" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                                data-id="<?php echo $product['idProduct'] ?>"></i>
+                        </div>
+                    </td>
+                </tr>
 
             <?php
-                }
+            }
             ?>
         </tbody>
     </table>
@@ -110,27 +110,28 @@
         </li>
 
         <?php
-                $db = new database();
-                $product = new product($db);
-                $page = $product->pagination($itemOfPage, $valueSearch);
-                for ($i = 1; $i <= $page; $i++) {
+        $db = new database();
+        $product = new product($db);
+        $page = $product->pagination($itemOfPage, $valueSearch);
+        for ($i = 1; $i <= $page; $i++) {
+        ?>
+
+            <?php
+            if ($i == 1) {
             ?>
+
+                <li class="page-item active"><a class="page-link" href="#"><?php echo $i ?></a></li>
+
+            <?php
+            } else {
+            ?>
+
+                <li class="page-item"><a class="page-link" href="#"><?php echo $i ?></a></li>
 
         <?php
-                if ($i == 1) {
-            ?>
-
-        <li class="page-item active"><a class="page-link" href="#"><?php echo $i ?></a></li>
-
-        <?php
-                } else {
-            ?>
-
-        <li class="page-item"><a class="page-link" href="#"><?php echo $i ?></a></li>
-
-        <?php
-                }}
-            ?>
+            }
+        }
+        ?>
 
         <li class="page-item">
             <a class="page-link next" href="#" aria-label="Next">

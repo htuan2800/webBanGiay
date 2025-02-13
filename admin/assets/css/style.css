@@ -15,7 +15,8 @@
     }
   }
 
-  .info-product {
+  .info-product,
+  .info-collection {
     margin: 50px auto;
     width: 90%;
     padding: 20px;
@@ -120,7 +121,8 @@
   }
 
   .add-product,
-  .add-staff {
+  .add-staff,
+  .add-collectioni {
     margin: 50px auto;
     width: 90%;
     padding: 20px;

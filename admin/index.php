@@ -270,6 +270,7 @@
     <script src="assets/js/customer.js"></script>
     <script src="assets/js/product.js"></script>
     <script src="assets/js/addProduct.js"></script>
+    <script src="assets/js/addCollection.js"></script>
     <script src="assets/js/role.js"></script>
     <script src="assets/js/addRole.js"></script>
     <script src="assets/js/staff.js"></script>
@@ -277,6 +278,7 @@
     <script type="module" src="assets/js/order.js"></script>
     <script src="assets/js/orderApproval.js"></script>
     <script src="assets/js/orderDelivery.js"></script>
+    <script src="assets/js/brand.js"></script>
 
     <script>
     $("#lineChart").sparkline([102, 109, 120, 99, 110, 105, 115], {
