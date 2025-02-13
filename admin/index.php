@@ -36,7 +36,7 @@ if (!isset($_SESSION['account_login'])) {
                 ],
                 urls: ["assets/css/fonts.min.css"],
             },
-            active: function () {
+            active: function() {
                 sessionStorage.fonts = true;
             },
         });
@@ -279,6 +279,7 @@ if (!isset($_SESSION['account_login'])) {
     <script src="assets/js/importProduct.js"></script>
     <script src="assets/js/receipt.js"></script>
     <script src="assets/js/supplier.js"></script>
+    <script src="assets/js/subBrand.js"></script>
 
     <script>
         $("#lineChart").sparkline([102, 109, 120, 99, 110, 105, 115], {

@@ -1,5 +1,5 @@
 $(document).ready(function () {
-
+    // show edit
     $(".main-panel").on(
         "click",
         ".container .info-collection tbody .fa-edit",
@@ -26,6 +26,8 @@ $(document).ready(function () {
     );
 
 
+    // edit 
+    var data = new FormData()
     $(".main-panel").on(
         "click",
         ".modal-content .modal-body .btn-save",
@@ -34,7 +36,7 @@ $(document).ready(function () {
             var idBrand = $(this).data("id");
             var oldName = $("#collection-name").data("name");
             var brandName = $("#collection-name").val()
-            if (brandName === oldName) {
+            if (brandName === oldName && data.getAll("img").length < 1) {
                 Swal.fire({
                     icon: 'info',
                     title: 'Không có gì để cập nhật',
@@ -49,16 +51,18 @@ $(document).ready(function () {
                 });
                 return
             }
+            data.append("brandName", brandName);
+            data.append("idBrand", idBrand);
+            data.append("update-brand", true);
+
+
 
             $.ajax({
                 type: "POST",
                 url: "./gui/editCollection.php",
-                data: {
-                    "update-brand": true,
-                    idBrand: idBrand,
-                    brandName: brandName,
-
-                },
+                data: data,
+                processData: false,
+                contentType: false,
                 dataType: "html",
                 success: function (response) {
                     console.log(response)
@@ -68,10 +72,49 @@ $(document).ready(function () {
                         title: 'Cập nhật thành công',
 
                     });
-                    var row = $('i[data-id="' + idBrand + '"]').closest('tr')
-                    row.find("td:eq(0)").text(brandName)
+                    $.ajax({
+                        type: "POST",
+                        url: "./gui/infoCollection.php",
+                        dataType: "html",
+                        success: function (response) {
+                            $(".main-panel .container").html(response);
+
+                        },
+                    });
                     $(".main-panel .container .info-collection .modal").modal("hide");
                 },
             });
         });
+
+
+
+    // change image
+
+
+    $(".main-panel").on(
+        "click",
+        ".modal-content .modal-body .btn-update-logoImage ",
+        function (e) {
+            e.preventDefault();
+            var input = $(this).parent().find("input");
+            input.click();
+
+        })
+
+    $(".main-panel").on(
+        "change",
+        ".modal-content .modal-body input[type=file] ",
+        function (e) {
+            var file = this.files[0];
+            if (!file) return;
+
+            const blob = new Blob([file], { type: file.type }); // Chuyển file thành BLOB
+            data.append('img', file)
+
+            // Hiển thị ảnh (Chuyển BLOB thành URL)
+            const imageUrl = URL.createObjectURL(blob);
+            $(this).parent().parent().find("img").attr("src", imageUrl);
+
+        })
+
 });

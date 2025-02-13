@@ -66,7 +66,7 @@ $(document).ready(function () {
         $.ajax({
             type: "POST",
             url: "./gui/addProduct.php",
-            data: form,
+            img: form,
             processData: false,
             contentType: false,
             success: function (response) {

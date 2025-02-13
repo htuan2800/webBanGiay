@@ -17,21 +17,21 @@ if (isset($_POST['get-sub-brand'])) {
     exit();
 }
 
-// update brand and design type
+// update brand 
 if (isset($_POST['update-brand'])) {
-   
+
     $idBrand = $_POST['idBrand'];
-    $brandName =$_POST ["brandName"];
-    echo $brand->updateBrandName($idBrand,$brandName);
+    $brandName = $_POST["brandName"];
+    if (isset($_FILES["img"])) {
+        $img = $_FILES["img"];
+        echo $brand->updateBrand($idBrand, $brandName, $img);
+        exit();
+    }
+
+    echo $brand->updateBrand($idBrand, $brandName, null);
     exit();
 }
 
-// delete image
-if (isset($_POST['delete-image'])) {
-    $idImage = $_POST['id-image'];
-    echo $product->deleteImageProduct($idImage);
-    exit();
-}
 
 // update image
 if (isset($_POST['update-image'])) {
@@ -49,30 +49,7 @@ if (isset($_POST['add-image'])) {
     exit();
 }
 
-// update name and price
-if (isset($_POST['update-name-and-price'])) {
-    $id = $_POST['idProduct'];
-    $name = $_POST['name'];
-    $price = $_POST['price'];
-    echo $product->updateNameAndPrice($id, $name, $price);
-    exit();
-}
 
-// add size
-if (isset($_POST['add-size'])) {
-    $idProduct = $_POST['idProduct'];
-    $size = $_POST['size'];
-    echo $product->addSizeProduct($idProduct, $size);
-    exit();
-}
-
-// delete size
-if (isset($_POST['delete-size'])) {
-    $idProduct = $_POST['idProduct'];
-    $size = $_POST['size'];
-    echo $product->deleteSizeProduct($idProduct, $size);
-    exit();
-}
 
 // show edit modal
 if (isset($_POST['edit-collection'])) {
@@ -92,7 +69,7 @@ if (isset($_POST['edit-collection'])) {
             <!-- name brand -->
             <div class="form-group col-12">
                 <label for="product-name">Tên hãng</label>
-                <input type="text" name="product-name" id="collection-name"        class="form-control" data-name="<?= $brands['brandName'] ?>"
+                <input type="text" name="product-name" id="collection-name" class="form-control" data-name="<?= $brands['brandName'] ?>"
                     value="<?= $brands['brandName'] ?>" />
             </div>
             <!-- design -->
@@ -134,9 +111,8 @@ if (isset($_POST['edit-collection'])) {
                                 ?>
                                 <img src="<?php echo $imagePath ?>" alt="" class="img-fluid" />
                                 <div class="btn-tools">
-                                    <button class="btn btn-danger btn-delete-image"
-                                        data-id=" <?= $image['idImage'] ?>">Xóa ảnh</button>
-                                    <button class="btn btn-warning btn-update-image">Sửa ảnh</button>
+
+                                    <button class="btn btn-warning btn-update-logoImage">Sửa ảnh</button>
                                     <input type="file" class="input-image" accept="image/*" name="image" id=""
                                         style="display: none;" data-id=" <?= $image['idImage'] ?>">
                                 </div>
@@ -149,7 +125,7 @@ if (isset($_POST['edit-collection'])) {
             </div>
             <!-- save btn -->
             <div class="col-12 d-flex justify-content-center align-items-center">
-                <button data-id="<?php echo $id?>" class="btn btn-info w-50 mt-5 btn-save">Lưu</button> 
+                <button data-id="<?php echo $id ?>" class="btn btn-info w-50 mt-5 btn-save">Lưu</button>
             </div>
 
         </div>

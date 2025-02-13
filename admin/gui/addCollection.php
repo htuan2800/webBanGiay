@@ -1,20 +1,24 @@
 <?php
+require_once __DIR__ . "/../../database/database.php";
+require_once __DIR__ . "/../../database/brand.php";
+
+$db = new database();
+$brand = new brand($db);
 // add collection 
+
 if (isset($_POST["add-collection"])) {
-    $image = $_FILES['image'];
-    $count = $_POST['count'];
-    $dir = __DIR__ . "/../imageTmp/";
-    $target_file = $dir . "image-" . $count . "." . pathinfo($image["name"], PATHINFO_EXTENSION);
 
-    move_uploaded_file($image["tmp_name"], $target_file);
+    $date = date_create();
+    $img = $_FILES["image"];
+    $nameCollection = $_POST["nameCollection"];
+    $dir = __DIR__ . "/../logoCollection/";
+    $target_file = $dir . "image"  . strval(date_timestamp_get($date)) . "." . pathinfo($img["name"], PATHINFO_EXTENSION);
+    move_uploaded_file($img["tmp_name"], $target_file);
 
-    echo "./imageTmp/image-" . $count . "." . pathinfo($image["name"], PATHINFO_EXTENSION);
+    $result = $brand->insertBrand($nameCollection, $img);
+    echo $result;
 }
-// add image
-if (isset($_POST['add-image'])) {
 
-    exit();
-}
 
 ?>
 <div class="add-collection container">

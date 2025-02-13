@@ -81,12 +81,12 @@ $products = $product->selectByCondition($sql);
 
 <div class="pagination">
     <ul class="pagination">
-        <!-- <li class="page-item">
+        <li class="page-item">
             <a class="page-link previous disabled" href="#" aria-label="Previous">
                 <span aria-hidden="true">&laquo;</span>
                 <span class="sr-only">Previous</span>
             </a>
-        </li> -->
+        </li>
 
         <?php
         $db = new database();
@@ -112,11 +112,11 @@ $products = $product->selectByCondition($sql);
         }
         ?>
 
-        <!-- <li class="page-item">
+        <li class="page-item">
             <a class="page-link next" href="#" aria-label="Next">
                 <span aria-hidden="true">&raquo;</span>
                 <span class="sr-only">Next</span>
             </a>
-        </li> -->
+        </li>
     </ul>
 </div>

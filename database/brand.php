@@ -10,6 +10,17 @@ class brand
         $this->db = $db;
     }
 
+    public function insertBrand($nameCollection, $logo)
+    {
+        require_once __DIR__ . "/../handle.php";
+
+        $sql = "Insert into brands (brandName,imageLogo) values(' $nameCollection','')";
+        $idCollection = $this->db->insert($sql);
+        $upload = uploadsLogoCollection($logo, $idCollection);
+        $sql = "Update brands set imageLogo ='$upload' where idBrand =$idCollection";
+        return $this->db->update($sql);
+    }
+
     public function selectAll()
     {
         $sql = "SELECT *
@@ -59,14 +70,29 @@ class brand
 
 
     //update
-    public function updateBrandName($idBrand, $brandName)
+    public function updateBrand($idCollection, $brandName, $img)
     {
-        $sql = "UPDATE BRANDS SET BRANDNAME = '$brandName' 
-       
-        WHERE IDBRAND = $idBrand";
+        $sql = "Update brands set brandName ='$brandName'";
+        if ($img) {
+            require_once __DIR__ . "/../handle.php";
+            $upload = uploadsLogoCollection($img, $idCollection);
+
+            $sql .= ", imageLogo ='$upload' ";
+        }
+        $sql .= " WHERE IDBRAND = $idCollection";
+        echo $sql;
         return $this->db->update($sql);
     }
+
+    function insertSubBrand($idBrand, $nameSubBrand)
+    {
+        $sql = "insert into subbrands (idBrand,subBrandName) values ($idBrand,'$nameSubBrand')";
+        echo $sql;
+        return $this->db->insert($sql);
+    }
 }
+
+
 
 function getSubBrandById($idBrand)
 {

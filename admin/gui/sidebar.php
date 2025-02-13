@@ -138,6 +138,9 @@ if (isset($_SESSION['account_login'])) {
                                         <a href="./gui/addCollection.php">
                                             <span class="sub-item">Thêm danh mục</span>
                                         </a>
+                                        <a href="./gui/addSubCollection.php">
+                                            <span class="sub-item">Thêm thiết kế</span>
+                                        </a>
                                     <?php
                                     }
                                     ?>
@@ -233,13 +236,13 @@ if (isset($_SESSION['account_login'])) {
                             <ul class="nav nav-collapse">
                                 <?php
                                 if ($value['idTask'] == 1) {
-                                    ?>
+                                ?>
                                     <li>
                                         <a href="./gui/importProducts.php">
                                             <span class="sub-item">Nhập hàng</span>
                                         </a>
                                     </li>
-                                    <?php
+                                <?php
                                 }
                                 ?>
                                 <li>
@@ -287,12 +290,12 @@ if (isset($_SESSION['account_login'])) {
                         </div>
                     </li>
 
-                    <?php
+                <?php
                 }
                 ?>
                 <?php
                 if ($value['idPermission'] == 8) {
-                    ?>
+                ?>
                     <li class="nav-item">
                         <a data-bs-toggle="collapse" href="#manage-supplier">
                             <i class="fas fa-copy"></i>
@@ -303,13 +306,13 @@ if (isset($_SESSION['account_login'])) {
                             <ul class="nav nav-collapse">
                                 <?php
                                 if ($value['idTask'] == 1) {
-                                    ?>
+                                ?>
                                     <li>
                                         <a href="./gui/infoSupplier.php">
                                             <span class="sub-item">Thông tin nhà cung cấp</span>
                                         </a>
                                     </li>
-                                    <?php
+                                <?php
                                 }
                                 ?>
                                 <li>
@@ -321,10 +324,10 @@ if (isset($_SESSION['account_login'])) {
                         </div>
                     </li>
 
-                    <?php
+                <?php
                 }
                 ?>
-                <?php
+            <?php
 
             }
             ?>
