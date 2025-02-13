@@ -391,15 +391,16 @@ $(document).ready(function () {
       var idProduct = $(
         ".container .info-product .modal-dialog #quantity-sold"
       ).data("id-product");
-      $(this).parent().find("input").click();
+      $(this).parent().find("input[type=file]").click();
     }
   );
 
   $(".main-panel").on(
     "change",
-    ".container .info-product .modal-dialog #add-image",
+    ".container .info-product .modal-dialog input[type=file]",
     function (e) {
       e.preventDefault();
+      alert(1);
 
       var idProduct = $(
         ".container .info-product .modal-dialog #quantity-sold"

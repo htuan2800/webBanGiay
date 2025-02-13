@@ -236,6 +236,6 @@
                 style="display: none;">
         </div>
         <button type="button" class="btn btn-primary add-image">Thêm ảnh</button>
-        <input type="file" name="image" id="add-image" accept="image/*" style="display: none;">
+        <input type="file" name="image" accept="image/*" style="display: none;">
     </div>
 </div>
