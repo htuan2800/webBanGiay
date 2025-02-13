@@ -172,7 +172,7 @@
                 <div>
                     <button class="btn-minus">-</button>
                     <input type="text" value="<?php echo $sizes[0]['quantityRemain'] > 0 ? 1 : 0; ?>"
-                        inputmode="numeric" max="<?php echo $sizes[0]['quantityRemain'] ?>">
+                        inputmode="numeric" >
                     <button class="btn-plus">+</button>
                 </div>
             </div>

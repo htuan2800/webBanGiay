@@ -211,15 +211,6 @@ SET quantityProduct = (
 WHERE IDCART = NEW.IDCART;
 END if;
 END $$ DELIMITER;
--- trigger change quantity product when buy product --
-DELIMITER $$ CREATE TRIGGER `changeQuantityProduct`
-AFTER
-INSERT ON `billDetail` FOR EACH ROW BEGIN
-UPDATE sizeProducts
-SET quantityRemain = quantityRemain - NEW.QUANTITY
-WHERE idProduct = NEW.IDPRODUCT
-  AND size = NEW.SIZE;
-END $$ DELIMITER;
 -- insert data tasks--
 INSERT INTO tasks (taskName)
 VALUES ('thêm'),

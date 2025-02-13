@@ -179,7 +179,16 @@ $(document).ready(function () {
             text: "Vui lòng đăng nhập hoặc tạo tài khoản để mua hàng",
             icon: "warning",
           });
-        } else {
+
+        }
+        else if (response === "out of stock") {
+          Swal.fire({
+            title: "Out of stock",
+            text: "Vui long chon san pham khac",
+            icon: "warning",
+          });
+        }
+        else {
           Swal.fire({
             title: "Thêm thành công",
             text: "",
@@ -239,7 +248,6 @@ $(document).ready(function () {
           text: "Vui lý đăng nhập hoặc tạo tài khoản để mua hàng",
           icon: "warning",
         });
-
       }
       else if (data === "out of stock") {
         Swal.fire({
