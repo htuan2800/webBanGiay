@@ -15,7 +15,9 @@
     }
   }
 
-  .info-product {
+  .info-product,
+  .info-supplier,
+  .info-receipt {
     margin: 50px auto;
     width: 90%;
     padding: 20px;
@@ -120,6 +122,8 @@
   }
 
   .add-product,
+  .add-supplier,
+  .import-products,
   .add-staff {
     margin: 50px auto;
     width: 90%;
@@ -292,6 +296,7 @@
     }
 
     .staff-tools,
+    .receipt-tools,
     .order-approval-tools,
     .order-delivery-tools,
     .order-deliveried-tools {
@@ -333,6 +338,73 @@
   .info-order-deliveried {
     th::nth-child(3) {
       width: 30%;
+    }
+  }
+}
+
+.import-products {
+  .table-responsive {
+    th:nth-child(2) {
+      width: 15%;
+    }
+
+    td {
+      text-align: center;
+
+      img {
+        border-radius: 50%;
+      }
+
+      .action {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+
+        i {
+          font-size: 18px;
+          cursor: pointer;
+
+          &.fa-trash {
+            color: red;
+          }
+
+          &.fa-edit {
+            color: blue;
+          }
+
+          &:hover {
+            opacity: 0.6;
+          }
+        }
+      }
+    }
+  }
+}
+
+.container .info-supplier {
+  .table-responsive {
+    .th {}
+
+    text-align: center;
+
+    th:nth-child(1) {
+      width: 20%;
+    }
+
+    th:nth-child(2) {
+      width: 15%;
+    }
+
+    th:nth-child(3) {
+      width: 15%;
+    }
+
+    th:nth-child(4) {
+      width: 35%;
+    }
+
+    th:nth-child(5) {
+      width: 15%;
     }
   }
 }
