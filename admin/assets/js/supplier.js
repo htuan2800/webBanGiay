@@ -215,7 +215,7 @@ $(document).ready(function () {
                             row.find('td:eq(0)').text(name);
                             row.find('td:eq(1)').text(phone);
                             row.find('td:eq(2)').text(email);
-                            row.find('td:eq(33)').text(address);
+                            row.find('td:eq(3)').text(address);
                             swal.fire({
                                 icon: 'success',
                                 title: 'Đã sửa thông tin nhà cung cấp',
