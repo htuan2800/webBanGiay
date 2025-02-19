@@ -36,7 +36,7 @@
             $sql = $sql . " ORDER BY $queryOrder";
         }
         $sql = $sql . "  LIMIT $offsetMax OFFSET $offset";
-        echo $sql;
+        // echo $sql;
         $result = $products->selectByCondition($sql);
     }
 ?>

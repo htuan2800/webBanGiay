@@ -29,7 +29,7 @@
 
     $sql = $sql . " GROUP BY products.idProduct";
 
-    echo $sql;
+    // echo $sql;
 
     $result = $products->selectByCondition($sql);
     $totalRecord = $result->num_rows;
