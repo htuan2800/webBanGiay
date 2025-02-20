@@ -2,11 +2,27 @@
 
 require_once __DIR__ . "/../../database/database.php";
 require_once __DIR__ . "/../../database/supplier.php";
+require_once __DIR__ . "/../../database/role.php";
 require_once __DIR__ . "\\..\\..\\handle.php";
 
 $db = new database();
 
 $supplier = new supplier($db);
+$role = new role($db);
+
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
+$tasks = $role->checkPermissionLook($_SESSION['account_login']['idRole'], 8);
+$countTask = $tasks->num_rows;
+$checkDeleteAndUpdate = false;
+foreach ($tasks as $key => $value) {
+    if ($value['idTask'] == 2 || $value['idTask'] == 3) {
+        $checkDeleteAndUpdate = true;
+    }
+}
+
 
 if (isset($_POST['delete-supplier'])) {
     $id = $_POST['id'];
@@ -41,7 +57,13 @@ $products = $supplier->selectByCondition($sql);
                 <th>Số điện thoại</th>
                 <th>Email</th>
                 <th>Địa chỉ</th>
-                <th>Chức năng</th>
+                <?php
+                if ($checkDeleteAndUpdate) {
+                    ?>
+                    <th>Chức năng</th>
+                    <?php
+                }
+                ?>
             </tr>
         </thead>
         <tbody>
@@ -71,13 +93,35 @@ $products = $supplier->selectByCondition($sql);
                     <td>
                         <?php echo $product['addressSupplier'] ?>
                     </td>
-                    <td>
-                        <div class="action">
-                            <i class="fa fa-trash" data-id="<?php echo $product['idSupplier'] ?>"></i>
-                            <i class="fa fa-edit" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
-                                data-id="<?php echo $product['idSupplier'] ?>"></i>
-                        </div>
-                    </td>
+                    <?php
+                    if ($countTask > 0) {
+                        ?>
+                        <td>
+                            <div class="action">
+                                <?php
+                                foreach ($tasks as $key => $value) {
+                                    if ($value['idTask'] == 2) {
+                                        ?>
+                                        <i class="fa fa-trash" data-id="<?php echo $product['idSupplier'] ?>"></i>
+
+                                        <?php
+                                    }
+                                    ?>
+                                    <?php
+                                    if ($value['idTask'] == 3) {
+                                        ?>
+                                        <i class="fa fa-edit" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                                            data-id="<?php echo $product['idSupplier'] ?>"></i>
+                                        <?php
+                                    }
+                                }
+                                ?>
+                            </div>
+                        </td>
+
+                        <?php
+                    }
+                    ?>
                 </tr>
 
                 <?php

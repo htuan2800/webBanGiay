@@ -45,17 +45,17 @@ $brands = $brand->selectByCondition($sql);
         <tbody>
             <?php
             if ($brands->num_rows < 0) {
-            ?>
+                ?>
 
                 <tr>
                     <td colspan="7">Không tìm thấy danh mục</td>
                 </tr>
 
 
-            <?php
+                <?php
             }
             foreach ($brands as $item) {
-            ?>
+                ?>
                 <tr>
                     <td>
                         <?php echo $item['brandName'] ?>
@@ -78,7 +78,7 @@ $brands = $brand->selectByCondition($sql);
                 </tr>
 
 
-            <?php
+                <?php
             }
             ?>
         </tbody>
@@ -99,21 +99,21 @@ $brands = $brand->selectByCondition($sql);
         $brand = new brand($db);
         $page = $brand->pagination($itemOfPage, $valueSearch);
         for ($i = 1; $i <= $page; $i++) {
-        ?>
+            ?>
 
             <?php
             if ($i == 1) {
-            ?>
+                ?>
 
                 <li class="page-item active"><a class="page-link" href="#"><?php echo $i ?></a></li>
 
-            <?php
+                <?php
             } else {
-            ?>
+                ?>
 
                 <li class="page-item"><a class="page-link" href="#"><?php echo $i ?></a></li>
 
-        <?php
+                <?php
             }
         }
         ?>

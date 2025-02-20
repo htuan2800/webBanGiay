@@ -16,7 +16,7 @@
   }
 
   .info-product,
-  .info-collection ,
+  .info-collection,
   .info-receipt {
     margin: 50px auto;
     width: 90%;
@@ -250,6 +250,7 @@
   }
 
   .info-staff,
+  .info-supplier,
   .info-order-approval,
   .info-order-delivery,
   .info-order-deliveried {

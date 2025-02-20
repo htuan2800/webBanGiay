@@ -2,11 +2,30 @@
 
 require_once __DIR__ . "/../../database/database.php";
 require_once __DIR__ . "/../../database/product.php";
+require_once __DIR__ . "/../../database/role.php";
 require_once __DIR__ . "\\..\\..\\handle.php";
+
 
 $db = new database();
 
 $product = new product($db);
+$role = new role($db);
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+//check chuc nang xem sua va xoa
+$tasks = $role->checkPermissionLook($_SESSION['account_login']['idRole'], 3);
+
+$countTask = $tasks->num_rows;
+$check = false;
+$checkDeleteAndUpdate = false;
+foreach ($tasks as $key => $value) {
+    if ($value['idTask'] == 2 || $value['idTask'] == 3) {
+        $checkDeleteAndUpdate = true;
+    }
+}
+$tasks = $role->selectTaskById($_SESSION['account_login']['idRole'], 2);
+$countTask = $tasks->num_rows;
 
 if (isset($_POST['delete-product'])) {
     $id = $_POST['id'];
@@ -29,7 +48,7 @@ if ($valueSearch != "") {
 
 $sql .= " GROUP BY products.idProduct
     ORDER BY products.idProduct DESC ";
-$sql .= " LIMIT " . ( $page - 1) * $itemOfPage . ", " .  $itemOfPage . " ";
+$sql .= " LIMIT " . ($page - 1) * $itemOfPage . ", " . $itemOfPage . " ";
 
 $products = $product->selectByCondition($sql);
 
@@ -45,23 +64,29 @@ $products = $product->selectByCondition($sql);
                 <th>Giá</th>
                 <th>Hình ảnh</th>
                 <th>Số lượng bán</th>
-                <th>Chức năng</th>
+                <?php
+                if ($checkDeleteAndUpdate) {
+                    ?>
+                    <th>Chức năng</th>
+                    <?php
+                }
+                ?>
             </tr>
         </thead>
         <tbody>
             <?php
             if ($products->num_rows < 0) {
-            ?>
+                ?>
 
                 <tr>
                     <td colspan="7">Không tìm thấy sản phẩm</td>
                 </tr>
 
 
-            <?php
+                <?php
             }
             foreach ($products as $product) {
-            ?>
+                ?>
                 <tr>
                     <td>
                         <?php echo $product['brandName'] ?>
@@ -84,16 +109,38 @@ $products = $product->selectByCondition($sql);
                     <td>
                         <?php echo $product['quantitySold'] ?>
                     </td>
-                    <td>
-                        <div class="action">
-                            <i class="fa fa-trash" data-id="<?php echo $product['idProduct'] ?>"></i>
-                            <i class="fa fa-edit" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
-                                data-id="<?php echo $product['idProduct'] ?>"></i>
-                        </div>
-                    </td>
+                    <?php
+                    if ($countTask > 0) {
+                        ?>
+                        <td>
+                            <div class="action">
+                                <?php
+                                foreach ($tasks as $key => $value) {
+                                    if ($value['idTask'] == 2) {
+                                        ?>
+                                        <i class="fa fa-trash" data-id="<?php echo $product['idProduct'] ?>"></i>
+                                        <?php
+                                    }
+                                    ?>
+                                    <?php
+                                    if ($value['idTask'] == 3) {
+                                        ?>
+                                        <i class="fa fa-edit" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                                            data-id="<?php echo $product['idProduct'] ?>"></i>
+                                        <?php
+                                    }
+                                }
+                                ?>
+                            </div>
+                        </td>
+
+                        <?php
+                    }
+                    ?>
+
                 </tr>
 
-            <?php
+                <?php
             }
             ?>
         </tbody>
@@ -114,21 +161,21 @@ $products = $product->selectByCondition($sql);
         $product = new product($db);
         $page = $product->pagination($itemOfPage, $valueSearch);
         for ($i = 1; $i <= $page; $i++) {
-        ?>
+            ?>
 
             <?php
             if ($i == 1) {
-            ?>
+                ?>
 
                 <li class="page-item active"><a class="page-link" href="#"><?php echo $i ?></a></li>
 
-            <?php
+                <?php
             } else {
-            ?>
+                ?>
 
                 <li class="page-item"><a class="page-link" href="#"><?php echo $i ?></a></li>
 
-        <?php
+                <?php
             }
         }
         ?>
