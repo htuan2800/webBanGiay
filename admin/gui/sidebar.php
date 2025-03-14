@@ -88,6 +88,10 @@ if (isset($_SESSION['account_login'])) {
                                             <span class="sub-item">Thông tin khách hàng</span>
                                         </a>
 
+                                        <a href="./gui/addCustomer.php">
+                                            <span class="sub-item">Thêm khách hàng</span>
+                                        </a>
+
                                     </li>
                                 </ul>
                             </div>
@@ -240,6 +244,57 @@ if (isset($_SESSION['account_login'])) {
                                     <li>
                                         <a href="./gui/addProduct.php">
                                             <span class="sub-item">Thêm sản phẩm</span>
+                                        </a>
+                                    </li>
+                                    <?php
+                                }
+                                ?>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <?php
+                }
+                ?>
+
+                <?php
+                if ($value['idPermission'] == 9) {
+                    $tasks = $role->checkPermissionLook($_SESSION['account_login']['idRole'], $value['idPermission']);
+
+                    $countTask = $tasks->num_rows;
+                    $checkWatching = false;
+                    foreach ($tasks as $key => $values) {
+                        if ($values['idTask'] == 2 || $values['idTask'] == 3 || $values['idTask'] == 4) {
+                            $checkWatching = true;
+                        }
+                    }
+
+                    ?>
+                    <li class="nav-item">
+                        <a data-bs-toggle="collapse" href="#manage-coupon">
+                            <i class="fas fa-shopping-bag"></i>
+                            <p>Quản lý mã giảm giá</p>
+                            <span class="caret"></span>
+                        </a>
+                        <div class="collapse" id="manage-coupon">
+                            <ul class="nav nav-collapse">
+                                <?php
+                                if ($checkWatching) {
+                                    ?>
+                                    <li>
+                                        <a href="./gui/infoCoupon.php">
+                                            <span class="sub-item">Thông tin mã giảm giá</span>
+                                        </a>
+                                    </li>
+                                    <?php
+                                }
+                                ?>
+                                <?php
+                                if ($value['idTask'] == 1) {
+                                    ?>
+                                    <li>
+                                        <a href="./gui/addCoupon.php">
+                                            <span class="sub-item">Thêm mã giảm giá</span>
                                         </a>
                                     </li>
                                     <?php

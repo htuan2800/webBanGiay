@@ -18,6 +18,13 @@ if (isset($_POST['unblock-customer'])) {
     $user->unblockUser($idCustomer);
 }
 
+// set remove
+if (isset($_POST['remove-customer'])) {
+    $id = $_POST['id'];
+    $user->deleteStaff($id);
+    exit();
+}
+
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
@@ -28,7 +35,6 @@ $task = $role->selectTaskById($_SESSION['account_login']['idRole'], 1);
 ?>
 
 <div class="page-inner info-customer">
-
     <div class="row">
         <div class="col-md-12">
             <div class="card">
@@ -49,18 +55,19 @@ $task = $role->selectTaskById($_SESSION['account_login']['idRole'], 1);
                                     foreach ($task as $key => $value) {
                                         if ($value['idTask'] == 3) {
                                             $check = true;
-                                            ?>
+                                    ?>
                                             <th>Tình trạng</th>
-                                            <?php
+                                    <?php
                                         }
                                     }
                                     ?>
+                                    <th>Chức năng</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php
                                 while ($row = $result->fetch_assoc()) {
-                                    ?>
+                                ?>
                                     <tr>
                                         <td>
                                             <?php echo $row['fullName']; ?>
@@ -85,7 +92,7 @@ $task = $role->selectTaskById($_SESSION['account_login']['idRole'], 1);
 
                                         <?php
                                         if ($check) {
-                                            ?>
+                                        ?>
                                             <td>
                                                 <?php
                                                 if ($row['status'] == 1) {
@@ -96,11 +103,19 @@ $task = $role->selectTaskById($_SESSION['account_login']['idRole'], 1);
                                                 ?>
                                             </td>
 
-                                            <?php
+                                            <td>
+                                                <div class="action">
+                                                    <i class="fa fa-trash" data-id="<?= $row['idUser']; ?>"></i>
+                                                    <i class="fa fa-edit" data-id="<?= $row['idUser']; ?>" data-bs-toggle="modal"
+                                                        data-bs-target="#edit-customer"></i>
+                                                </div>
+                                            </td>
+
+                                        <?php
                                         }
                                         ?>
                                     </tr>
-                                    <?php
+                                <?php
                                 }
                                 ?>
                             </tbody>
@@ -110,24 +125,32 @@ $task = $role->selectTaskById($_SESSION['account_login']['idRole'], 1);
             </div>
         </div>
     </div>
+    
+    <!-- Modal -->
+    <div class="modal fade" id="edit-customer" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+    
+        </div>
+    </div>
 </div>
 
+
 <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
         $("#basic-datatables").DataTable({});
 
         $("#multi-filter-select").DataTable({
             pageLength: 5,
-            initComplete: function () {
+            initComplete: function() {
                 this.api()
                     .columns()
-                    .every(function () {
+                    .every(function() {
                         var column = this;
                         var select = $(
-                            '<select class="form-select"><option value=""></option></select>'
-                        )
+                                '<select class="form-select"><option value=""></option></select>'
+                            )
                             .appendTo($(column.footer()).empty())
-                            .on("change", function () {
+                            .on("change", function() {
                                 var val = $.fn.dataTable.util.escapeRegex($(this).val());
 
                                 column
@@ -139,7 +162,7 @@ $task = $role->selectTaskById($_SESSION['account_login']['idRole'], 1);
                             .data()
                             .unique()
                             .sort()
-                            .each(function (d, j) {
+                            .each(function(d, j) {
                                 select.append(
                                     '<option value="' + d + '">' + d + "</option>"
                                 );

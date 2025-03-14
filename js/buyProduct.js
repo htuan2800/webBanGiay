@@ -102,4 +102,75 @@ $(document).ready(function () {
         }
 
     })
+
+    //add coupon
+    $(".info-payment .coupon").on("click", ".btn-add-coupon", function (e) {
+        var name = $("#coupon-code").val();
+        console.log(name);
+        if (name == "") {
+            Swal.fire({
+                title: "Vui lòng điền đầy đủ thông tin!",
+                icon: "error",
+            });
+            return;
+        }
+
+        var receiver = $("#coupon-code").val();
+        $.ajax({
+            type: "POST",
+            url: "./buyProduct.php",
+            data: {
+                'apply-coupon': true,
+                'code': receiver
+            },
+            dataType: "html",
+            success: function (response) {
+                var data = JSON.parse(response);
+                console.log(data);
+                if (data==1) {
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: "Thêm mã giảm giá thành công",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                
+                    setTimeout(function () {
+                        window.location.reload();
+                    }, 1500);
+                } else {
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "error",
+                        title: "Mã giảm giá không hợp lệ!",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                }
+            }
+        });
+
+
+    })
+
+    $(document).on("click", ".btn-remove-coupon", function () {
+        $.ajax({
+            type: "POST",
+            url: "./buyProduct.php",
+            data: { remove_coupon: true },
+            success: function (response) {
+                console.log(response);
+                if (response == "1") {
+                    location.reload(); // Tải lại trang sau khi xóa mã giảm giá
+                } else {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Lỗi!",
+                        text: "Không thể xóa mã giảm giá.",
+                    });
+                }
+            },
+        });
+    });
 });

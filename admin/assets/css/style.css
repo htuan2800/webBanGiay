@@ -16,6 +16,7 @@
   }
 
   .info-product,
+  .info-coupon
   .info-collection,
   .info-receipt {
     margin: 50px auto;
@@ -123,8 +124,10 @@
 
   .add-product,
   .add-staff,
+  .add-customer,
   .add-collection,
   .add-supplier,
+  .add-coupon,
   .import-products,
   .add-staff {
     margin: 50px auto;

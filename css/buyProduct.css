@@ -161,3 +161,21 @@
         }
     }
 }
+
+.coupon-applied {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #f8f9fa;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+.coupon-applied strong {
+    color: #28a745;
+}
+
+.btn-remove-coupon {
+    margin-left: 10px;
+}

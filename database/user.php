@@ -154,6 +154,17 @@
             return $this->db->insert($sql);
         }
 
+        public function insertCustomer ($name, $phoneNumber, $email, $username, $password, $avatar) {
+            $password = password_hash($password, PASSWORD_BCRYPT);
+            if ($email == "") {
+                $sql = "INSERT INTO users(idRole, fullname, phoneNumber, username, password, avatar) VALUES(1, '$name', '$phoneNumber', '$username', '$password', '$avatar')";
+                return $this->db->insert($sql);
+            }
+            $sql = "INSERT INTO users(idRole, fullname, phoneNumber, email, username, password, avatar) VALUES(1, '$name', '$phoneNumber', '$email', '$username', '$password', '$avatar')";
+            return $this->db->insert($sql);
+        }
+
+
         public function updateAvatar ($id, $avatar) {
             $sql = "UPDATE users SET avatar = '$avatar' WHERE idUser = $id";
             return $this->db->update($sql);
@@ -184,6 +195,31 @@
             }
         }
 
+        public function updateCustomer ($id, $fullname, $phoneNumber, $email, $avatar) {
+            if ($email == "Không có") {
+                $sql = "UPDATE users SET fullname = '$fullname', phoneNumber = '$phoneNumber', idRole = 1
+                WHERE idUser = $id";
+                $this->db->update($sql);
+            }
+            else {
+                $check = $this->checkEmailUpdate($email, $id);
+                if ($check == "") {
+                    $sql = "UPDATE users SET fullname = '$fullname', phoneNumber = '$phoneNumber', idRole = 1, email = '$email', WHERE idUser = $id";
+                    $this->db->update($sql);
+                }
+                else {
+                    return $check;
+                }
+            }
+
+            if ($avatar != '') {
+                require_once __DIR__ . '/../handle.php';
+                $avatar = uploadsAvatar($avatar, $id);
+                $sql = "UPDATE USERS SET AVATAR = '$avatar' WHERE IDUSER = $id";
+                return $this->db->update($sql);
+            }
+        }
+
         public function updateStaffDefaultAvatar ($id, $fullname, $phoneNumber, $idRole, $email) {
             $avatar = "./avatar/default-avatar.jpg";
             if ($email == "Không có") {
@@ -195,6 +231,27 @@
                 $check = $this->checkEmailUpdate($email, $id);
                 if ($check == "") {
                     $sql = "UPDATE users SET fullname = '$fullname', phoneNumber = '$phoneNumber', idRole = $idRole, email = '$email', avatar = '$avatar'
+                    WHERE idUser = $id";
+                }
+                else {
+                    return $check;
+                }
+            }
+            // return $sql;
+            return $this->db->update($sql);
+        }
+
+        public function updateCustomerDefaultAvatar ($id, $fullname, $phoneNumber, $email) {
+            $avatar = "./avatar/default-avatar.jpg";
+            if ($email == "Không có") {
+                $sql = "UPDATE users SET fullname = '$fullname', phoneNumber = '$phoneNumber', idRole = 1,
+                avatar = '$avatar'
+                WHERE idUser = $id";
+            }
+            else {
+                $check = $this->checkEmailUpdate($email, $id);
+                if ($check == "") {
+                    $sql = "UPDATE users SET fullname = '$fullname', phoneNumber = '$phoneNumber', idRole = 1, email = '$email', avatar = '$avatar'
                     WHERE idUser = $id";
                 }
                 else {

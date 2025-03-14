@@ -3,7 +3,7 @@
     class database {
         private $severname = "localhost";
         private $username = "root";
-        private $password = "";
+        private $password = "admin";
         private $dbname = "webBanGiay";
         private $conn;
         public function __construct() {
@@ -72,4 +72,5 @@
         }
     }
 
+    //SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));
 ?>

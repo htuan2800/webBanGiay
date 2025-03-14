@@ -25,7 +25,6 @@ if (isset($_GET['products'])) {
 // insert bill
 if (isset($_POST['buy-product'])) {
     require_once('./database/bill.php');
-
     $cart = new cart($db);
     $bill = new bill($db);
     $product = new product($db);
@@ -49,6 +48,24 @@ if (isset($_POST['buy-product'])) {
     print_r($products);
     exit();
 }
+
+if (isset($_POST['apply-coupon'])) {
+    require_once('./database/coupon.php');
+    $coupon=new coupon($db);
+
+    $code = $_POST['code'];
+    $result = $coupon->checkCoupon($code);
+    echo $result;
+    exit();
+}
+
+if (isset($_POST['remove_coupon'])) {
+    unset($_SESSION['coupon']);
+    echo "1"; // Thành công
+    exit();
+}
+
+
 ?>
 
 <!DOCTYPE html>
@@ -106,6 +123,9 @@ if (isset($_POST['buy-product'])) {
                 <?php
                     $total += $value['totalProduct'];
                 }
+                if(isset($_SESSION['coupon'])) {
+                    $total = $total - $total * $_SESSION['coupon']['discount'] / 100;
+                }
                 ?>
             </div>
 
@@ -140,6 +160,21 @@ if (isset($_POST['buy-product'])) {
                 <?php
                 include_once "./gui/formAddress.php";
                 ?>
+            </div>
+
+           
+            <div class="coupon">
+                <?php if (isset($_SESSION['coupon'])): ?>
+                    <div class="coupon-applied">
+                        <span>Mã giảm giá: <strong><?php echo $_SESSION['coupon']['code']; ?></strong></span>
+                        <button class="btn btn-danger btn-remove-coupon">Xóa</button>
+                    </div>
+                <?php else: ?>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Nhập mã giảm giá" aria-label="Nhập mã giảm giá" aria-describedby="button-addcoupon" id="coupon-code">
+                        <button class="btn btn-outline-secondary btn-add-coupon" type="button" id="button-addcoupon">Xác nhận</button>
+                    </div>
+                <?php endif; ?>
             </div>
 
             <div class="btn-payment">

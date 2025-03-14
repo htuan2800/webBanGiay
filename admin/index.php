@@ -264,8 +264,11 @@ if (!isset($_SESSION['account_login'])) {
     <script src="assets/js/demo.js"></script>
     <script src="assets/js/sidebar.js"></script>
     <script src="assets/js/customer.js"></script>
+    <script src="assets/js/addCustomer.js"></script>
     <script src="assets/js/product.js"></script>
     <script src="assets/js/addProduct.js"></script>
+    <script src="assets/js/coupon.js"></script>
+    <script src="assets/js/addCoupon.js"></script>
     <script src="assets/js/addCollection.js"></script>
     <script src="assets/js/role.js"></script>
     <script src="assets/js/addRole.js"></script>
