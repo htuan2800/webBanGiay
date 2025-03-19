@@ -18,7 +18,10 @@
         // exit ();
         if (isset($_POST['avatarDefault'])) {
             $avatar = "./avatar/default-avatar.jpg";
-            echo $user->updateStaffDefaultAvatar($id, $name, $phoneNumber, $idRole, $email);
+            $result= $user->updateStaffDefaultAvatar($id, $name, $phoneNumber, $idRole, $email);
+            if($result == "0") {
+              echo "Dữ liệu nhập khi sửa phải khác lúc ban đầu";
+            }
             exit();
         }
 
